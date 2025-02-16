@@ -527,7 +527,7 @@ h6 {
 
 .footer .footer-newsletter {
   background-color: color-mix(in srgb, var(--default-color), transparent 97%);
-  padding: 50px 0;
+  padding: 30px 0;
 }
 
 .footer .footer-newsletter h4 {
@@ -580,7 +580,7 @@ h6 {
 }
 
 .footer .footer-top {
-  padding-top: 50px;
+  padding-top: 30px;
 }
 
  .social-links a {
@@ -658,7 +658,7 @@ h6 {
 }
 
 .footer .copyright {
-  padding: 25px 0;
+  padding: 10px 0;
   border-top: 1px solid color-mix(in srgb, var(--default-color), transparent 90%);
 }
 
@@ -793,7 +793,7 @@ section,
 .section {
   color: var(--default-color);
   background-color: var(--background-color);
-  padding: 60px 0;
+  padding: 30px 0;
   scroll-margin-top: 100px;
   overflow: clip;
 }
@@ -863,7 +863,7 @@ section,
   width: 100%;
   min-height: 70vh;
   position: relative;
-  padding: 120px 0 60px 0;
+  padding: 30px 0 60px 0;
   display: flex;
   align-items: center;
 }
@@ -968,7 +968,7 @@ section,
 
 .featured-services .service-item {
   background-color: var(--surface-color);
-  padding: 50px 30px;
+  padding: 10px 30px;
   transition: all ease-in-out 0.4s;
   height: 100%;
 }
@@ -1078,7 +1078,7 @@ section,
   background-color: var(--surface-color);
   text-align: center;
   border: 1px solid color-mix(in srgb, var(--default-color), transparent 85%);
-  padding: 80px 20px;
+  padding: 20px 20px;
   transition: border ease-in-out 0.3s;
   height: 100%;
 }
