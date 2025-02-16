@@ -949,7 +949,7 @@ document.getElementById('contactForm').addEventListener('submit', function (e) {
     document.querySelector('.error-message').style.display = 'none';
     document.querySelector('.sent-message').style.display = 'none';
 
-    fetch('email.php', {
+    fetch('./forms/email.php', {
         method: 'POST',
         body: formData
     })
