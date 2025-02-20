@@ -221,7 +221,7 @@ h6 {
 .header {
   color: var(--default-color);
   background-color: var(--background-color);
-  padding: 15px 0;
+  padding: 5px 0;
   transition: all 0.5s;
   z-index: 997;
 }
@@ -258,7 +258,20 @@ h6 {
   color: var(--contrast-color);
   background: color-mix(in srgb, var(--accent-color), transparent 15%);
 }
-
+.header .console-login .btn-login {
+  background: linear-gradient(to right, #1ebabdea, rgba(180, 8, 8, 0.808)) !important;
+  border: none;
+  color: #fff;
+  font-size: 13px;
+  padding: 6px 14px;
+}
+.header .console-login .btn-login:hover {
+  background: linear-gradient(to right, #19e4e8ea, rgba(220, 10, 10, 0.808)) !important;
+  border: none;
+  color: #fff;
+  font-size: 13px;
+  padding: 6px 14px;
+}
 @media (max-width: 1200px) {
   .header .logo {
     order: 1;
@@ -583,23 +596,39 @@ h6 {
   padding-top: 30px;
 }
 
- .social-links a {
+ .social-links a .bi-whatsapp{
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 30px;
-  height: 30px;
+  width: 32px;
+  height: 32px;
   border-radius: 50%;
-  border: 1px solid color-mix(in srgb, var(--default-color), transparent 50%);
+  border: 1px solid #46C254;
   font-size: 14px;
-  color: color-mix(in srgb, var(--default-color), transparent 20%);
+  color: #46C254;
+  margin-right: 10px;
+  transition: 0.3s;
+}
+.social-links a .bi-linkedin{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: 1px solid #0A63BC;
+  font-size: 14px;
+  color: #0A63BC;
   margin-right: 10px;
   transition: 0.3s;
 }
 
- .social-links a:hover {
-  color: var(--accent-color);
-  border-color: var(--accent-color);
+ .social-links a:hover .bi-linkedin {
+  transform: scale(1.2);
+  
+}
+.social-links a:hover .bi-whatsapp {
+  transform: scale(1.2);
 }
 
 .footer h4 {
@@ -717,8 +746,8 @@ h6 {
   bottom: -15px;
   z-index: 99999;
   background-color: var(--accent-color);
-  width: 44px;
-  height: 44px;
+  width: 40px;
+  height: 40px;
   border-radius: 50px;
   transition: all 0.4s;
 }
@@ -740,6 +769,48 @@ h6 {
   bottom: 15px;
 }
 
+.whatsapp-btn {
+  position: fixed;
+  right: 15px;
+  bottom: 65px;
+  color: #46C254;
+  z-index: 99999;
+  border: 1px solid #46C254;
+  background-color: #fff;
+  width: 40px;
+  height: 40px;
+  border-radius: 50px;
+  transition: all 0.4s;
+}
+.whatsapp-btn i{
+  font-size: 16px;
+}
+.whatsapp-btn:hover{
+  background-color: #1EBABD;
+  color: whitesmoke;
+}
+
+.linkedin-btn {
+  position: fixed;
+  right: 15px;
+  bottom: 115px;
+  color: #0A63BC;
+  z-index: 99999;
+  border: 1px solid #0A63BC;
+  background-color: #fff;
+  width: 40px;
+  height: 40px;
+  border-radius: 50px;
+  transition: all 0.4s;
+}
+.linkedin-btn i{
+  font-size: 16px;
+}
+.linkedin-btn:hover{
+  background-color: #1EBABD;
+  border: 1px solid #1EBABD;
+  color: whitesmoke;
+}
 /*--------------------------------------------------------------
 # Disable aos animation delay on mobile devices
 --------------------------------------------------------------*/
@@ -1712,4 +1783,11 @@ section,
 .clients-item .card h2{
   font-size: 20px;
   margin-top: 10px;
+}
+
+.purecounter::after {
+  content: "+";
+}
+.plus .purecounter::after {
+  content: "/7";
 }
