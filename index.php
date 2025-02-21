@@ -1,4 +1,8 @@
 <?php include 'back/logic/mclient.php'; ?>
+<?php include 'back/logic/mservices.php'; ?>
+<?php include 'back/logic/mportfolio.php'; ?>
+<?php include 'back/logic/mtestimonials.php'; ?>
+<?php include 'back/logic/mteam.php'; ?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -46,7 +50,7 @@
       <nav id="navmenu" class="navmenu ">
         <ul>
           <li><a href="#hero" class="active">Home</a></li>
-          <li><a href="#about">About <?php echo $totalClients; ?></a></li>
+          <li><a href="#about">About</a></li>
           <li><a href="#services">Services</a></li>
           <li><a href="#portfolio">Portfolio</a></li>
           <li><a href="#team">Team</a></li>
@@ -104,11 +108,8 @@
 
     <!-- Featured Services Section -->
     <section id="featured-services" class="featured-services section">
-
       <div class="container-fluid">
-
         <div class="row gy-4">
-
           <div class="col-lg-4 d-flex" data-aos="fade-up" data-aos-delay="100">
             <div class="service-item position-relative">
               <div class="icon"><i class="bi bi-activity icon"></i></div>
@@ -132,16 +133,12 @@
               <p>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia</p>
             </div>
           </div><!-- End Service Item -->
-
         </div>
-
       </div>
-
     </section><!-- /Featured Services Section -->
 
     <!-- About Section -->
     <section id="about" class="about section">
-
       <!-- Section Title -->
       <div class="container-fluid section-title" data-aos="fade-up">
         <span>About Us<br></span>
@@ -150,7 +147,6 @@
       </div><!-- End Section Title -->
 
       <div class="container-fluid">
-
         <div class="row gy-4">
           <div class="col-lg-6 position-relative align-self-start" data-aos="fade-up" data-aos-delay="100">
             <img src="assets/img/about.png" class="img-fluid" alt="">
@@ -169,9 +165,7 @@
             </p>
           </div>
         </div>
-
       </div>
-
     </section><!-- /About Section -->
 
     <!-- Stats Section -->
@@ -218,6 +212,8 @@
     <!-- Services Section -->
     <section id="services" class="services section light-background">
 
+
+
       <!-- Section Title -->
       <div class="container-fluid section-title" data-aos="fade-up">
         <span>Services</span>
@@ -227,33 +223,32 @@
 
       <div class="container-fluid">
 
-        <div class="row gy-4">
+      <div class="row gy-4">
+      <?php
+      $sql = "SELECT sid, image, title, description, created_date FROM services ORDER BY sid DESC";
+      $result = $conn->query($sql);
 
-          <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="100">
-            <div class="service-item position-relative">
-              <div class="icon">
-                <i class="bi bi-activity"></i>
-              </div>
-              <span class="stretched-link">
-                <h3>Nesciunt Mete</h3>
-              </span>
-              <p>Provident nihil minus qui consequatur non omnis maiores. Eos accusantium minus dolores iure perferendis tempore et consequatur.</p>
+      if ($result->num_rows > 0) {
+        while ($row = $result->fetch_assoc()) {
+            $image = base64_encode($row['image']);
+            $imageSrc = "data:image/jpeg;base64," . $image;
+            ?>
+            <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="100">
+                <div class="service-item position-relative">
+                    <div class="icon">
+                        <img src="<?php echo $imageSrc; ?>" alt="<?php echo htmlspecialchars($row['title']); ?>" height="50px" width="50px" />
+                    </div>
+                    <h3><?php echo htmlspecialchars($row['title']); ?></h3>
+                    <p><?php echo htmlspecialchars($row['description']); ?></p>
+                </div>
             </div>
-          </div><!-- End Service Item -->
-
-          <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="200">
-            <div class="service-item position-relative">
-              <div class="icon">
-                <i class="bi bi-broadcast"></i>
-              </div>
-              <span class="stretched-link">
-                <h3>Eosle Commodi</h3>
-              </span>
-              <p>Ut autem aut autem non a. Sint sint sit facilis nam iusto sint. Libero corrupti neque eum hic non ut nesciunt dolorem.</p>
-            </div>
-          </div><!-- End Service Item -->
-
-        </div>
+            <?php
+        }
+    } else {
+        echo "<div class='col-12 text-center'>No services found</div>";
+    }
+    ?>
+</div>
 
       </div>
 
@@ -273,140 +268,205 @@
 
         <div class="isotope-layout" data-default-filter="*" data-layout="masonry" data-sort="original-order">
 
-          <ul class="portfolio-filters isotope-filters" data-aos="fade-up" data-aos-delay="100">
-            <li data-filter="*" class="filter-active">All</li>
-            <li data-filter=".filter-app">App</li>
-            <li data-filter=".filter-product">Product</li>
-            <li data-filter=".filter-branding">Branding</li>
-            <li data-filter=".filter-books">Books</li>
-          </ul><!-- End Portfolio Filters -->
+       
 
           <div class="row gy-4 isotope-container" data-aos="fade-up" data-aos-delay="200">
+          <?php
+$sql = "SELECT pid, image1, image2, image3, image4, image5, title, description FROM portfolio ORDER BY pid DESC";
+$result = $conn->query($sql);
 
-            <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-app">
-              <img src="assets/img/portfolio/app-1.jpg" class="img-fluid" alt="">
-              <div class="portfolio-info">
-                <h4>App 1</h4>
-                <p>Lorem ipsum, dolor sit amet consectetur</p>
-                <a href="assets/img/portfolio/app-1.jpg" title="App 1" data-gallery="portfolio-gallery-app" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
-                <a href="portfolio-details.html" title="More Details" class="details-link"><i class="bi bi-link-45deg"></i></a>
-              </div>
-            </div><!-- End Portfolio Item -->
-
-            <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-product">
-              <img src="assets/img/portfolio/product-1.jpg" class="img-fluid" alt="">
-              <div class="portfolio-info">
-                <h4>Product 1</h4>
-                <p>Lorem ipsum, dolor sit amet consectetur</p>
-                <a href="assets/img/portfolio/product-1.jpg" title="Product 1" data-gallery="portfolio-gallery-product" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
-                <a href="portfolio-details.html" title="More Details" class="details-link"><i class="bi bi-link-45deg"></i></a>
-              </div>
-            </div><!-- End Portfolio Item -->
-
-            <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-branding">
-              <img src="assets/img/portfolio/branding-1.jpg" class="img-fluid" alt="">
-              <div class="portfolio-info">
-                <h4>Branding 1</h4>
-                <p>Lorem ipsum, dolor sit amet consectetur</p>
-                <a href="assets/img/portfolio/branding-1.jpg" title="Branding 1" data-gallery="portfolio-gallery-branding" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
-                <a href="portfolio-details.html" title="More Details" class="details-link"><i class="bi bi-link-45deg"></i></a>
-              </div>
-            </div><!-- End Portfolio Item -->
-
-            <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-books">
-              <img src="assets/img/portfolio/books-1.jpg" class="img-fluid" alt="">
-              <div class="portfolio-info">
-                <h4>Books 1</h4>
-                <p>Lorem ipsum, dolor sit amet consectetur</p>
-                <a href="assets/img/portfolio/books-1.jpg" title="Branding 1" data-gallery="portfolio-gallery-book" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
-                <a href="portfolio-details.html" title="More Details" class="details-link"><i class="bi bi-link-45deg"></i></a>
-              </div>
-            </div><!-- End Portfolio Item -->
-
-            <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-app">
-              <img src="assets/img/portfolio/app-2.jpg" class="img-fluid" alt="">
-              <div class="portfolio-info">
-                <h4>App 2</h4>
-                <p>Lorem ipsum, dolor sit amet consectetur</p>
-                <a href="assets/img/portfolio/app-2.jpg" title="App 2" data-gallery="portfolio-gallery-app" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
-                <a href="portfolio-details.html" title="More Details" class="details-link"><i class="bi bi-link-45deg"></i></a>
-              </div>
-            </div><!-- End Portfolio Item -->
-
-            <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-product">
-              <img src="assets/img/portfolio/product-2.jpg" class="img-fluid" alt="">
-              <div class="portfolio-info">
-                <h4>Product 2</h4>
-                <p>Lorem ipsum, dolor sit amet consectetur</p>
-                <a href="assets/img/portfolio/product-2.jpg" title="Product 2" data-gallery="portfolio-gallery-product" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
-                <a href="portfolio-details.html" title="More Details" class="details-link"><i class="bi bi-link-45deg"></i></a>
-              </div>
-            </div><!-- End Portfolio Item -->
-
-            <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-branding">
-              <img src="assets/img/portfolio/branding-2.jpg" class="img-fluid" alt="">
-              <div class="portfolio-info">
-                <h4>Branding 2</h4>
-                <p>Lorem ipsum, dolor sit amet consectetur</p>
-                <a href="assets/img/portfolio/branding-2.jpg" title="Branding 2" data-gallery="portfolio-gallery-branding" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
-                <a href="portfolio-details.html" title="More Details" class="details-link"><i class="bi bi-link-45deg"></i></a>
-              </div>
-            </div><!-- End Portfolio Item -->
-
-            <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-books">
-              <img src="assets/img/portfolio/books-2.jpg" class="img-fluid" alt="">
-              <div class="portfolio-info">
-                <h4>Books 2</h4>
-                <p>Lorem ipsum, dolor sit amet consectetur</p>
-                <a href="assets/img/portfolio/books-2.jpg" title="Branding 2" data-gallery="portfolio-gallery-book" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
-                <a href="portfolio-details.html" title="More Details" class="details-link"><i class="bi bi-link-45deg"></i></a>
-              </div>
-            </div><!-- End Portfolio Item -->
-
-            <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-app">
-              <img src="assets/img/portfolio/app-3.jpg" class="img-fluid" alt="">
-              <div class="portfolio-info">
-                <h4>App 3</h4>
-                <p>Lorem ipsum, dolor sit amet consectetur</p>
-                <a href="assets/img/portfolio/app-3.jpg" title="App 3" data-gallery="portfolio-gallery-app" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
-                <a href="portfolio-details.html" title="More Details" class="details-link"><i class="bi bi-link-45deg"></i></a>
-              </div>
-            </div><!-- End Portfolio Item -->
-
-            <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-product">
-              <img src="assets/img/portfolio/product-3.jpg" class="img-fluid" alt="">
-              <div class="portfolio-info">
-                <h4>Product 3</h4>
-                <p>Lorem ipsum, dolor sit amet consectetur</p>
-                <a href="assets/img/portfolio/product-3.jpg" title="Product 3" data-gallery="portfolio-gallery-product" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
-                <a href="portfolio-details.html" title="More Details" class="details-link"><i class="bi bi-link-45deg"></i></a>
-              </div>
-            </div><!-- End Portfolio Item -->
-
-            <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-branding">
-              <img src="assets/img/portfolio/branding-3.jpg" class="img-fluid" alt="">
-              <div class="portfolio-info">
-                <h4>Branding 3</h4>
-                <p>Lorem ipsum, dolor sit amet consectetur</p>
-                <a href="assets/img/portfolio/branding-3.jpg" title="Branding 2" data-gallery="portfolio-gallery-branding" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
-                <a href="portfolio-details.html" title="More Details" class="details-link"><i class="bi bi-link-45deg"></i></a>
-              </div>
-            </div><!-- End Portfolio Item -->
-
-            <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-books">
-              <img src="assets/img/portfolio/books-3.jpg" class="img-fluid" alt="">
-              <div class="portfolio-info">
-                <h4>Books 3</h4>
-                <p>Lorem ipsum, dolor sit amet consectetur</p>
-                <a href="assets/img/portfolio/books-3.jpg" title="Branding 3" data-gallery="portfolio-gallery-book" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
-                <a href="portfolio-details.html" title="More Details" class="details-link"><i class="bi bi-link-45deg"></i></a>
-              </div>
-            </div><!-- End Portfolio Item -->
-
-          </div><!-- End Portfolio Container -->
-
+if ($result->num_rows > 0) {
+    while ($row = $result->fetch_assoc()) {
+        $images = [];
+        for ($i = 1; $i <= 5; $i++) {
+            if (!empty($row["image$i"])) {
+                $images[] = base64_encode($row["image$i"]);
+            }
+        }
+        $mainImage = $images[0];
+        ?>
+        <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-app">
+            <div class="portfolio-card">
+                <img src="data:image/jpeg;base64,<?php echo $mainImage; ?>" class="img-fluid portfolio-thumb" alt="">
+                <div class="portfolio-info">
+                    <h4><?php echo htmlspecialchars($row['title']); ?></h4>
+                    <p><?php echo htmlspecialchars($row['description']); ?></p>
+                    <button type="button" class="btn btn-sm btn-primary gallery-btn" data-bs-toggle="modal" data-bs-target="#portfolioModal<?php echo $row['pid']; ?>">
+                        <i class="fas fa-images"></i> View Gallery
+                    </button>
+                </div>
+            </div>
         </div>
 
+        <!-- Modal -->
+        <div class="modal fade" id="portfolioModal<?php echo $row['pid']; ?>" tabindex="-1" aria-labelledby="portfolioModalLabel<?php echo $row['pid']; ?>" aria-hidden="true">
+            <div class="modal-dialog modal-xl modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="portfolioModalLabel<?php echo $row['pid']; ?>">
+                            <i class="fas fa-folder-open me-2"></i><?php echo htmlspecialchars($row['title']); ?>
+                        </h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body p-0">
+                        <div id="carousel<?php echo $row['pid']; ?>" class="carousel slide" data-bs-ride="carousel">
+                            <div class="carousel-inner">
+                                <?php foreach ($images as $index => $imageData): ?>
+                                    <div class="carousel-item <?php echo $index === 0 ? 'active' : ''; ?>">
+                                        <div class="carousel-image-container">
+                                            <img src="data:image/jpeg;base64,<?php echo $imageData; ?>" class="carousel-image" alt="">
+                                        </div>
+                                    </div>
+                                <?php endforeach; ?>
+                            </div>
+                            <?php if (count($images) > 1): ?>
+                                <button class="carousel-control-prev" type="button" data-bs-target="#carousel<?php echo $row['pid']; ?>" data-bs-slide="prev">
+                                    <span class="carousel-control-prev-icon carousel-icon" aria-hidden="true"></span>
+                                    <span class="visually-hidden">Previous</span>
+                                </button>
+                                <button class="carousel-control-next" type="button" data-bs-target="#carousel<?php echo $row['pid']; ?>" data-bs-slide="next">
+                                    <span class="carousel-control-next-icon carousel-icon" aria-hidden="true"></span>
+                                    <span class="visually-hidden">Next</span>
+                                </button>
+                            <?php endif; ?>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <?php
+    }
+} else {
+    echo "<p class='text-center'>No portfolio items found</p>";
+}
+?>
+
+
+                <style>
+
+                  /* Portfolio Card */
+                .portfolio-card {
+                    position: relative;
+                    overflow: hidden;
+                    border-radius: 10px;
+                    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+                    transition: transform 0.3s ease;
+                }
+
+                .portfolio-card:hover {
+                    transform: translateY(-5px);
+                }
+
+                .portfolio-thumb {
+                    width: 100%;
+                    height: 250px;
+                    object-fit: cover;
+                    transition: transform 0.3s ease;
+                }
+
+                .portfolio-card:hover .portfolio-thumb {
+                    transform: scale(1.05);
+                }
+
+                .portfolio-info {
+                    padding: 15px;
+                    background: rgba(255, 255, 255, 0.95);
+                    position: absolute;
+                    bottom: 0;
+                    left: 0;
+                    right: 0;
+                    transition: all 0.3s ease;
+                }
+
+                .gallery-btn {
+                    background: #007bff;
+                    border: none;
+                    padding: 8px 15px;
+                    border-radius: 5px;
+                    transition: all 0.3s ease;
+                }
+
+                .gallery-btn:hover {
+                    background: #0056b3;
+                    transform: scale(1.05);
+                }
+
+                /* Modal Styling */
+                .modal-xl {
+                    max-width: 700px;
+                    height: 500px;
+                }
+
+                .carousel-image-container {
+                    max-height: 400px;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    background: #f8f9fa;
+                }
+
+                .carousel-image {
+                    max-height: 600px;
+                    max-width: 100%;
+                    object-fit: contain;
+                    padding: 20px;
+                    transition: transform 0.3s ease;
+                }
+
+                .carousel-image:hover {
+                    transform: scale(1.02);
+                }
+
+                .carousel-control-prev,
+                .carousel-control-next {
+                    width: 5%;
+                    opacity: 0.8;
+                    transition: opacity 0.3s ease;
+                }
+
+                .carousel-control-prev:hover,
+                .carousel-control-next:hover {
+                    opacity: 1;
+                }
+
+                .carousel-icon {
+                    width: 40px;
+                    height: 40px;
+                    border-radius: 50%;
+                    background-color: rgba(0, 0, 0, 0.7);
+                }
+
+                .modal-content {
+                    border: none;
+                    border-radius: 10px;
+                    overflow: hidden;
+                    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+                }
+
+                .modal-header {
+                    background: #007bff;
+                    color: white;
+                    border-bottom: none;
+                }
+
+                /* Animation */
+                @keyframes fadeInUp {
+                    from {
+                        opacity: 0;
+                        transform: translateY(20px);
+                    }
+                    to {
+                        opacity: 1;
+                        transform: translateY(0);
+                    }
+                }
+
+                .portfolio-item {
+                    animation: fadeInUp 0.5s ease forwards;
+                }
+                 </style> 
+          </div><!-- End Portfolio Container -->
+        </div>
       </div>
 
     </section><!-- /Portfolio Section -->
@@ -448,60 +508,31 @@
                 }
               </script>
               <div class="swiper-wrapper">
-    
-                <div class="swiper-slide">
-                  <div class="clients-item" >
-                    <div class="card">
-                      <img src="./assets/img/logo.png" alt="">
-                      <h2>Palika Name</h2>
-                    </div>
-                  </div>
-                </div>
-    
-                <div class="swiper-slide">
-                  <div class="clients-item" >
-                    <div class="card">
-                      <img src="./assets/img/logo.png" alt="">
-                      <h2>Palika Name</h2>
-                    </div>
-                  </div>
-                </div>
-    
-                <div class="swiper-slide">
-                  <div class="clients-item" >
-                    <div class="card">
-                      <img src="./assets/img/logo.png" alt="">
-                      <h2>Palika Name</h2>
-                    </div>
-                  </div>
-                </div>
+              <?php
+                  $sql = "SELECT cid, cname, cimage, caddress, createdDate FROM clients ORDER BY cid DESC";
+                  $result = $conn->query($sql);
 
-                <div class="swiper-slide">
-                  <div class="clients-item" >
-                    <div class="card">
-                      <img src="./assets/img/logo.png" alt="">
-                      <h2>Palika Name</h2>
-                    </div>
-                  </div>
-                </div>
-    <div class="swiper-slide">
-                  <div class="clients-item" >
-                    <div class="card">
-                      <img src="./assets/img/logo.png" alt="">
-                      <h2>Palika Name</h2>
-                    </div>
-                  </div>
-                </div>
-                <div class="swiper-slide">
-                  <div class="clients-item" >
-                    <div class="card">
-                      <img src="./assets/img/logo.png" alt="">
-                      <h2>Palika Name</h2>
-                    </div>
-                  </div>
-                </div>
-               
-    
+                  if ($result->num_rows > 0) {
+                      while ($row = $result->fetch_assoc()) {
+                          // Convert BLOB image data to base64
+                          $imageData = base64_encode($row['cimage']);
+                          $imageSrc = "data:image/jpeg;base64," . $imageData;
+
+                          echo '
+                          <div class="swiper-slide">
+                              <div class="clients-item">
+                                  <div class="card">
+                                      <img src="' . $imageSrc . '" alt="' . htmlspecialchars($row['cname']) . '">
+                                      <h2>' . htmlspecialchars($row['cname']) . '</h2>
+                                      <h5 style="font-size:12px;">' . htmlspecialchars($row['caddress']) . '</h5>
+                                  </div>
+                              </div>
+                          </div>';
+                      }
+                  } else {
+                      echo '<p class="text-center">No clients found</p>';
+                  }
+                  ?>
               </div>
               <div class="swiper-pagination"></div>
             </div>
@@ -521,7 +552,6 @@
       </div><!-- End Section Title -->
 
       <div class="container-fluid" data-aos="fade-up" data-aos-delay="100">
-
         <div class="swiper init-swiper" data-speed="600" data-delay="5000" data-breakpoints="{ &quot;320&quot;: { &quot;slidesPerView&quot;: 1, &quot;spaceBetween&quot;: 40 }, &quot;1200&quot;: { &quot;slidesPerView&quot;: 3, &quot;spaceBetween&quot;: 40 } }">
           <script type="application/json" class="swiper-config">
             {
@@ -549,83 +579,46 @@
             }
           </script>
           <div class="swiper-wrapper">
+            <?php
+            // Fetch testimonials
+            $sql = "SELECT id, quote, name, image, designation, address, created_date FROM testimonial ORDER BY id DESC";
+            $result = $conn->query($sql);
 
-            <div class="swiper-slide">
-              <div class="testimonial-item">
-            <p>
-              <i class=" bi bi-quote quote-icon-left"></i>
-                <span>Proin iaculis purus consequat sem cure digni ssim donec porttitora entum suscipit rhoncus. Accusantium quam, ultricies eget id, aliquam eget nibh et. Maecen aliquam, risus at semper.</span>
-                <i class="bi bi-quote quote-icon-right"></i>
-                </p>
-                <img src="assets/img/testimonials/testimonials-1.jpg" class="testimonial-img" alt="">
-                <h3>Saul Goodman</h3>
-                <h4>Ceo &amp; Founder</h4>
-              </div>
-            </div><!-- End testimonial item -->
+            if ($result->num_rows > 0) {
+                // Loop through each testimonial
+                while ($row = $result->fetch_assoc()) {
+                    // Encode image data
+                    $imageData = base64_encode($row['image']);
+                    $imageSrc = "data:image/jpeg;base64," . $imageData;
 
-            <div class="swiper-slide">
-              <div class="testimonial-item">
-                <p>
-                  <i class="bi bi-quote quote-icon-left"></i>
-                  <span>Export tempor illum tamen malis malis eram quae irure esse labore quem cillum quid malis quorum velit fore eram velit sunt aliqua noster fugiat irure amet legam anim culpa.</span>
-                  <i class="bi bi-quote quote-icon-right"></i>
-                </p>
-                <img src="assets/img/testimonials/testimonials-2.jpg" class="testimonial-img" alt="">
-                <h3>Sara Wilsson</h3>
-                <h4>Designer</h4>
-              </div>
-            </div><!-- End testimonial item -->
-
-            <div class="swiper-slide">
-              <div class="testimonial-item">
-                <p>
-                  <i class="bi bi-quote quote-icon-left"></i>
-                  <span>Enim nisi quem export duis labore cillum quae magna enim sint quorum nulla quem veniam duis minim tempor labore quem eram duis noster aute amet eram fore quis sint minim.</span>
-                  <i class="bi bi-quote quote-icon-right"></i>
-                </p>
-                <img src="assets/img/testimonials/testimonials-3.jpg" class="testimonial-img" alt="">
-                <h3>Jena Karlis</h3>
-                <h4>Store Owner</h4>
-              </div>
-            </div><!-- End testimonial item -->
-
-            <div class="swiper-slide">
-              <div class="testimonial-item">
-                <p>
-                  <i class="bi bi-quote quote-icon-left"></i>
-                  <span>Fugiat enim eram quae cillum dolore dolor amet nulla culpa multos export minim fugiat dolor enim duis veniam ipsum anim magna sunt elit fore quem dolore labore illum veniam.</span>
-                  <i class="bi bi-quote quote-icon-right"></i>
-                </p>
-                <img src="assets/img/testimonials/testimonials-4.jpg" class="testimonial-img" alt="">
-                <h3>Matt Brandon</h3>
-                <h4>Freelancer</h4>
-              </div>
-            </div><!-- End testimonial item -->
-
-            <div class="swiper-slide">
-              <div class="testimonial-item">
-                <p>
-                  <i class="bi bi-quote quote-icon-left"></i>
-                  <span>Quis quorum aliqua sint quem legam fore sunt eram irure aliqua veniam tempor noster veniam sunt culpa nulla illum cillum fugiat legam esse veniam culpa fore nisi cillum quid.</span>
-                  <i class="bi bi-quote quote-icon-right"></i>
-                </p>
-                <img src="assets/img/testimonials/testimonials-5.jpg" class="testimonial-img" alt="">
-                <h3>John Larson</h3>
-                <h4>Entrepreneur</h4>
-              </div>
-            </div><!-- End testimonial item -->
-
+                    // Output the HTML structure for each testimonial
+                    echo '
+                    <div class="swiper-slide">
+                        <div class="testimonial-item">
+                            <p>
+                                <i class="bi bi-quote quote-icon-left"></i>
+                                <span>' . htmlspecialchars($row['quote']) . '</span>
+                                <i class="bi bi-quote quote-icon-right"></i>
+                            </p>
+                            <img src="' . $imageSrc . '" class="testimonial-img" alt="' . htmlspecialchars($row['name']) . '">
+                            <h3>' . htmlspecialchars($row['name']) . '</h3>
+                            <h4>' . htmlspecialchars($row['designation']) . '</h4>
+                        </div>
+                    </div>';
+                }
+            } else {
+                echo '<p class="text-center">No testimonials found</p>';
+            }
+            ?>
           </div>
           <div class="swiper-pagination"></div>
         </div>
-
       </div>
 
     </section><!-- /Testimonials Section -->
 
         <!-- Team Section -->
         <section id="team" class="team section light-background">
-
           <!-- Section Title -->
           <div class="container-fluid section-title" data-aos="fade-up">
             <span>Team</span>
@@ -634,7 +627,6 @@
           </div>
     
           <div class="container-fluid" data-aos="fade-up" data-aos-delay="100">
-    
             <div class="swiper init-swiper" data-speed="600" data-delay="5000" data-breakpoints="{ &quot;320&quot;: { &quot;slidesPerView&quot;: 1, &quot;spaceBetween&quot;: 40 }, &quot;1200&quot;: { &quot;slidesPerView&quot;: 3, &quot;spaceBetween&quot;: 40 } }">
               <script type="application/json" class="swiper-config">
                 {
@@ -663,48 +655,59 @@
               </script>
               <div class="swiper-wrapper">
                 <div class="swiper-slide">
+                <?php
+                  // Fetch team members
+                  $sql = "SELECT id, name, image, designation FROM team ORDER BY id DESC";
+                  $result = $conn->query($sql);
 
-                    <div class="member">
-                      <div class="pic"><img src="assets/img/team/team-1.jpg" class="img-fluid rounded" alt=""></div>
-                      <div class="member-info rounded shadow-xl mb-3">
-                        <h4>Walter White</h4>
-                        <span>Chief Executive Officer</span>
-                        <div class="social">
-                          <a href=""><i class="bi bi-facebook"></i></a>
-                          <a href=""><i class="bi bi-github"></i></a>
-                          <a href=""><i class="bi bi-linkedin"></i></a>
-                        </div>
-                      </div>
-                  </div>
+                  if ($result->num_rows > 0) {
+                      // Loop through each team member
+                      while ($row = $result->fetch_assoc()) {
+                          // Encode image data
+                          $imageData = base64_encode($row['image']);
+                          $imageSrc = "data:image/jpeg;base64," . $imageData;
+
+                          // Output the HTML structure for each team member
+                          echo '
+                          <div class="member">
+                              <div class="pic">
+                                  <img src="' . $imageSrc . '" class="img-fluid rounded" alt="">
+                              </div>
+                              <div class="member-info rounded shadow-xl mb-3">
+                                  <h4>' . htmlspecialchars($row['name']) . '</h4>
+                                  <span>' . htmlspecialchars($row['designation']) . '</span>
+                                  <div class="social">
+                                      <a href="#"><i class="bi bi-facebook"></i></a>
+                                      <a href="#"><i class="bi bi-github"></i></a>
+                                      <a href="#"><i class="bi bi-linkedin"></i></a>
+                                  </div>
+                              </div>
+                          </div>';
+                      }
+                  } else {
+                      echo '<p class="text-center">No team members found</p>';
+                  }
+                  $conn->close();
+                  ?>
                 </div>
-    
-              
-               
               </div>
               <div class="swiper-pagination"></div>
             </div>
-    
           </div>
-    
         </section><!-- /team Section -->
 
 
     <!-- Contact Section -->
     <section id="contact" class="contact section">
-
       <!-- Section Title -->
       <div class="container-fluid section-title" data-aos="fade-up">
         <span>Contact</span>
         <h2>Contact</h2>
         <p>Reach out to us for collaboration, inquiries, or support—we're here to help! </p>
       </div><!-- End Section Title -->
-
       <div class="container-fluid" data-aos="fade-up" data-aos-delay="100">
-
         <div class="row gy-4">
-
           <div class="col-lg-7">
-
             <div class="info-wrap">
               <div class="row d-flex align-items-center justify-content-between">
                 <div class="col-lg-4 info-item d-flex" >
@@ -730,10 +733,9 @@
                     <p>hr@nirc.com.np</p>
                   </div>
                 </div>
-              </div>
 
+              </div>
               <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d14129.53785890344!2d85.32936566299314!3d27.705413376712457!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39eb19c7c886557d%3A0xa23b44219e7e07e3!2sPashupati%20vision%20complex!5e0!3m2!1sen!2snp!4v1739688228633!5m2!1sen!2snp" frameborder="0" style="border:0; width: 100%; height: 278px;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-              
             </div>
           </div>
 
@@ -770,13 +772,9 @@
           </form>
   
           </div><!-- End Contact Form -->
-
         </div>
-
       </div>
-
     </section><!-- /Contact Section -->
-
   </main>
   
 
