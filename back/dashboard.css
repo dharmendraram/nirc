@@ -4,11 +4,8 @@
     padding: 0;
     box-sizing: border-box;
 }
-
-body {
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-    background-color: #f3f4f6;
-    color: #1f2937;
+body,html{
+    background-color: #f8f5f5d0;
 }
 
 /* Container */
@@ -19,14 +16,28 @@ body {
 
 /* Sidebar */
 .sidebar {
-    width: 260px;
-    background-color: #1a237e;
+    width: 220px;
+    background-color: #1ba4a7;
     color: white;
     position: fixed;
     height: 100vh;
     left: 0;
     top: 0;
     transition: transform 0.3s ease;
+}
+.btn {
+    font-size: 14px !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.btn-primary{
+    background-color: #1EBABD !important;
+    border: none !important;
+
+}
+.btn-primary:hover{
+    background-color: #126768 !important;
 }
 
 .sidebar-header {
@@ -61,60 +72,103 @@ body {
 
 .sidebar-nav {
     display: flex;
+    align-items: start;
+    justify-content: center;
     flex-direction: column;
-    gap: 0.5rem;
 }
 
-.nav-item {
+.sidebar-nav .nav-item {
     display: flex;
     align-items: center;
-    padding: 0.75rem 1rem;
+    width: 100%;
+    gap: 12px;
+    font-size: 14px;
     color: white;
     text-decoration: none;
-    border-radius: 0.5rem;
-    gap: 0.5rem;
-    transition: background-color 0.2s;
+    padding:15px;
 }
+
 
 .nav-item:hover {
-    background-color: rgba(255, 255, 255, 0.1);
+    display: flex;
+    align-items: center;
+    width: 100%;
+    gap: 12px;
+    font-size: 14px;
+    color: white;
+    text-decoration: none;
+    background: #126768;
+   
 }
 
-.nav-item.active {
-    background-color: rgba(255, 255, 255, 0.2);
-}
-
-.nav-item i[data-lucide="chevron-right"] {
-    margin-left: auto;
-    width: 16px;
-    height: 16px;
+.sidebar-nav .active{
+    display: flex;
+    align-items: center;
+    width: 100%;
+    gap: 12px;
+    font-size: 14px;
+    color: white;
+    text-decoration: none;
+    background: #126768 !important;
 }
 
 /* Adjust top navigation */
 .top-nav {
-    background-color: white;
-    padding: 0.75rem 1rem;
+    background-color: rgba(255, 255, 255, 0.822);
+    padding:30px 20px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    border-bottom: 2px solid #1EBABD;
     position: fixed;
-    width: calc(100% - 260px); /* Adjust for sidebar width */
-    left: 260px; /* Sidebar width */
+    width: calc(100% - 220px); 
+    left: 220px;
     top: 0;
     height: 60px;
+    z-index: 1000;
+    transition: left 0.3s ease;
+}
+.bottom-nav{
+    width: calc(100% - 220px); 
+    background-color: #126768;
+    padding:18px 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    width: calc(100% - 220px); 
+    left: 220px;
+    font-size: 14px;
+    bottom: 0;
+    height: 20px;
     z-index: 1000;
     transition: left 0.3s ease;
 }
 
 /* Adjust main content */
 .main-content {
-    margin-left: 260px;
-    padding: 1.5rem;
-    margin-top: 60px; /* Push content below navbar */
-    transition: margin-left 0.3s ease;
+    margin-left: 225px;
+    margin-top: 70px;
+}
+.main-content .card{
+    text-align: center;
+    padding: 10px 20px;
 }
 
+.main-content .card h3{
+    font-weight: bold;
+    color: #126768;
+    font-size: 35px;
+}
+.main-content .card:hover{
+    background-color: #126768 !important;  
+}
+.main-content .card:hover h3{
+    color: #fff;
+}
+.main-content .card:hover p{
+    color: #fff;
+}
 /* Sidebar toggle effect */
 .sidebar {
     transition: transform 0.3s ease;
@@ -212,12 +266,6 @@ body {
     gap: 0.5rem;
 }
 
-.profile img {
-    width: 32px;
-    height: 32px;
-    border-radius: 50%;
-    object-fit: cover;
-}
 
 /* Content Area */
 .content {
@@ -229,7 +277,7 @@ body {
 }
 
 .page-header h1 {
-    font-size: 1.5rem;
+    font-size: 20px;
     font-weight: bold;
     color: #1f2937;
     margin-bottom: 0.25rem;
@@ -323,10 +371,22 @@ body {
     object-fit: cover;
     border-radius: 50%;
 }
-.main-content {
-    margin-left: 250px; /* Adjust based on sidebar width */
-    padding: 20px;
-}
+
 .page-header {
     margin-bottom: 20px;
+}
+
+.dataTables_wrapper .dataTables_length, .dataTables_wrapper .dataTables_filter, .dataTables_wrapper .dataTables_info, .dataTables_wrapper .dataTables_processing, .dataTables_wrapper .dataTables_paginate {
+    color: #333;
+    padding-bottom: 15px;
+}
+#myTable img{
+    height: 40px;
+    width: 40px;
+}
+#myTable thead tr th{
+    font-size: 14px;
+}
+#myTable tbody tr td{
+    font-size: 13px;
 }

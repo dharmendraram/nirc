@@ -1,18 +1,10 @@
 
-<?php
-include 'logic/mlogin.php';
-if (!isset($_SESSION['user_id'])) {
-    header("Location: login.php");
-    exit();
-}
-
-?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NIRC~Admin~Dashboard</title>
+    <title>NIRC~Admin~foo</title>
       <!-- Favicons -->
   <link href="../assets/img/favicon.ico" rel="icon">
   <link href="../assets/img/apple-touch-icon.png" rel="apple-touch-icon">
@@ -102,16 +94,12 @@ if (!isset($_SESSION['user_id'])) {
                 </div>
             </div>
         </header>
-        <header class="bottom-nav">
-        <p class="py-2 m-0 text-center text-light">&copy; 2016 - <span id="currentYear"></span> <strong class="px-1 sitename">National Incubation & Research Center.</strong> <span>All Rights Reserved</span></p>
-        </header>
 
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
         // Initialize Lucide icons
-        document.getElementById("currentYear").textContent = new Date().getFullYear();
         lucide.createIcons();
 
         // Mobile sidebar toggle
