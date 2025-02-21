@@ -1,8 +1,8 @@
 <?php
 include 'connect.php'; // Database connection
 
-// Handle form submission
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
+// Handle form submission (Adding a client)
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['cname'])) {
     $cname = $_POST['cname'];
     $caddress = $_POST['caddress'];
     $createdDate = date("Y-m-d"); // Set current date
@@ -13,7 +13,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // Prepare the statement correctly
         $stmt = $conn->prepare("INSERT INTO clients (cname, cimage, caddress, createdDate) VALUES (?, ?, ?, ?)");
         $stmt->bind_param("ssss", $cname, $imageData, $caddress, $createdDate);
-        
+
         // Execute the query and check for errors
         if ($stmt->execute()) {
             echo "<script>alert('Client added successfully'); window.location.href='manageClient.php';</script>";
@@ -27,6 +27,22 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 }
 
+// Handle client deletion (AJAX request)
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['delete_id'])) {
+    $delete_id = intval($_POST['delete_id']);
+
+    $stmt = $conn->prepare("DELETE FROM clients WHERE cid = ?");
+    $stmt->bind_param("i", $delete_id);
+
+    if ($stmt->execute()) {
+        echo "success";
+    } else {
+        echo "error";
+    }
+
+    $stmt->close();
+    exit(); // Stop further script execution
+}
 
 // Fetch total number of clients
 $sql = "SELECT COUNT(*) AS total FROM clients";
@@ -34,4 +50,3 @@ $result = $conn->query($sql);
 $row = $result->fetch_assoc();
 $totalClients = $row['total'];
 ?>
-

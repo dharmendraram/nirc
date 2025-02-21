@@ -2,20 +2,28 @@
 include 'connect.php'; // Database connection
 
 // Handle form submission
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $title = $_POST['title'];
-    $description = $_POST['description'];
-    $createdDate = date("Y-m-d H:i:s"); // Set current timestamp
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['title'])) {
+    $title = htmlspecialchars($_POST['title']);
+    $description = htmlspecialchars($_POST['description']);
+    $createdDate = date("Y-m-d H:i:s"); // Current timestamp
 
-    // Handle image uploads
-    $image1 = file_get_contents($_FILES['image1']['tmp_name']);
-    $image2 = isset($_FILES['image2']) && $_FILES['image2']['error'] == 0 ? file_get_contents($_FILES['image2']['tmp_name']) : null;
-    $image3 = isset($_FILES['image3']) && $_FILES['image3']['error'] == 0 ? file_get_contents($_FILES['image3']['tmp_name']) : null;
-    $image4 = isset($_FILES['image4']) && $_FILES['image4']['error'] == 0 ? file_get_contents($_FILES['image4']['tmp_name']) : null;
-    $image5 = isset($_FILES['image5']) && $_FILES['image5']['error'] == 0 ? file_get_contents($_FILES['image5']['tmp_name']) : null;
+    // Handle image uploads safely
+    function getImageData($image) {
+        return isset($_FILES[$image]) && $_FILES[$image]['error'] == 0 ? file_get_contents($_FILES[$image]['tmp_name']) : null;
+    }
+
+    $image1 = getImageData('image1');
+    $image2 = getImageData('image2');
+    $image3 = getImageData('image3');
+    $image4 = getImageData('image4');
+    $image5 = getImageData('image5');
 
     // Prepare the statement
     $stmt = $conn->prepare("INSERT INTO portfolio (image1, image2, image3, image4, image5, title, description, created_date) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
+    if ($stmt === false) {
+        die("Error preparing statement: " . $conn->error);
+    }
+
     $stmt->bind_param("ssssssss", $image1, $image2, $image3, $image4, $image5, $title, $description, $createdDate);
 
     // Execute the query and check for errors
@@ -28,13 +36,39 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $stmt->close();
 }
 
+// Handle portfolio deletion (AJAX request)
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['delete_id'])) {
+    $delete_id = intval($_POST['delete_id']);
 
-// Fetch total number of clients
+    // Check if portfolio ID exists before deleting
+    $checkStmt = $conn->prepare("SELECT pid FROM portfolio WHERE pid = ?");
+    $checkStmt->bind_param("i", $delete_id);
+    $checkStmt->execute();
+    $result = $checkStmt->get_result();
+    $checkStmt->close();
+
+    if ($result->num_rows > 0) {
+        $stmt = $conn->prepare("DELETE FROM portfolio WHERE pid = ?");
+        $stmt->bind_param("i", $delete_id);
+
+        if ($stmt->execute()) {
+            echo "success";
+        } else {
+            echo "error: " . $stmt->error;
+        }
+
+        $stmt->close();
+    } else {
+        echo "error: portfolio not found";
+    }
+
+    exit(); // Stop further script execution
+}
+
+// Fetch total number of portfolio entries
 $sql = "SELECT COUNT(*) AS total FROM portfolio";
 $result = $conn->query($sql);
 $row = $result->fetch_assoc();
 $totalPortfolio = $row['total'];
 
-
 ?>
-

@@ -19,6 +19,7 @@
   <link rel ="stylesheet" type = "text/css" href ="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css"/>
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
     <script src = "https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
     <link rel="stylesheet" href="dashboard.css"> <!-- Include your CSS file -->
 
@@ -96,7 +97,7 @@
                                         <td>{$row['created_date']}</td>
                                         <td>
                                             <button class='btn btn-warning btn-sm'>Edit</button>
-                                            <button class='btn btn-danger btn-sm'>Delete</button>
+                                            <button class='btn btn-danger btn-sm delete-portfolio' data-id='{$row['pid']}'>Delete</button>
                                         </td>
                                       </tr>";
                             }
@@ -167,5 +168,41 @@
         lucide.createIcons();
         let table = new DataTable('#myTable');
     </script>
+
+
+    <script>
+            $(document).ready(function () {
+                $(".delete-portfolio").click(function () {
+                    var portfolioId = $(this).data("id");
+                    var row = $(this).closest("tr");
+
+                    console.log("Attempting to delete portfolio ID:", portfolioId); // Debugging
+
+                    if (confirm("Are you sure you want to delete this portfolio?")) {
+                        $.ajax({
+                            url: "managePortfolio.php",
+                            type: "POST",
+                            data: { delete_id: portfolioId },
+                            success: function (response) {
+                                console.log("Response:", response); // Debugging
+
+                                if (response.trim() == "success") {
+                                    row.fadeOut(500, function () {
+                                        $(this).remove();
+                                    });
+                                } else {
+                                    alert("Failed to delete the portfolio.");
+                                }
+                            },
+                            error: function(xhr, status, error) {
+                                console.error("AJAX Error:", status, error);
+                            }
+                        });
+                    }
+                });
+            });
+    </script>
+
+
 </body>
 </html>

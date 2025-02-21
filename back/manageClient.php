@@ -18,7 +18,8 @@
 
   <link rel ="stylesheet" type = "text/css" href ="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css"/>
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
-      <script src = "https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src = "https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
 
     <link rel="stylesheet" href="dashboard.css"> <!-- Include your CSS file -->
     <style>
@@ -69,32 +70,32 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <?php
-                            $sql = "SELECT cid, cname, cimage, caddress, createdDate FROM clients ORDER BY cid DESC";
-                            $result = $conn->query($sql);
+                        <?php
+        $sql = "SELECT cid, cname, cimage, caddress, createdDate FROM clients ORDER BY cid DESC";
+        $result = $conn->query($sql);
 
-                            if ($result->num_rows > 0) {
-                                while ($row = $result->fetch_assoc()) {
-                                    // Convert BLOB image data to base64
-                                    $image = base64_encode($row['cimage']);
-                                    $imageSrc = "data:image/jpeg;base64," . $image;
+        if ($result->num_rows > 0) {
+            while ($row = $result->fetch_assoc()) {
+                $image = base64_encode($row['cimage']);
+                $imageSrc = "data:image/jpeg;base64," . $image;
 
-                                    echo "<tr>
-                                            <td>{$row['cid']}</td>
-                                            <td><img src='$imageSrc' class='client-image'></td>
-                                            <td>{$row['cname']}</td>
-                                            <td>{$row['caddress']}</td>
-                                            <td>{$row['createdDate']}</td>
-                                            <td>
-                                                <button class='btn btn-warning btn-sm'>Edit</button>
-                                                <button class='btn btn-danger btn-sm'>Delete</button>
-                                            </td>
-                                        </tr>";
-                                }
-                            } else {
-                                echo "<tr><td colspan='6' class='text-center'>No clients found</td></tr>";
-                            }
-                            ?>
+                echo "<tr id='row-{$row['cid']}'>
+                        <td>{$row['cid']}</td>
+                        <td><img src='$imageSrc' class='client-image' style='width:50px;height:50px;'></td>
+                        <td>{$row['cname']}</td>
+                        <td>{$row['caddress']}</td>
+                        <td>{$row['createdDate']}</td>
+                        <td>
+                            <button class='btn btn-warning btn-sm'>Edit</button>
+                            <button class='btn btn-danger btn-sm delete-client' data-id='{$row['cid']}'>Delete</button>
+                        </td>
+                    </tr>";
+            }
+        } else {
+            echo "<tr><td colspan='6' class='text-center'>No clients found</td></tr>";
+        }
+        ?>
+
                         </tbody>
                         </table>
                     </div>
@@ -145,5 +146,34 @@
         let table = new DataTable('#myTable');
     
     </script>
+
+
+<script>
+$(document).ready(function () {
+    $(".delete-client").click(function () {
+        var clientId = $(this).data("id");
+        var row = $("#row-" + clientId); // Select the row to remove on success
+
+        if (confirm("Are you sure you want to delete this client?")) {
+            $.ajax({
+                url: "manageClient.php",
+                type: "POST",
+                data: { delete_id: clientId },
+                success: function (response) {
+                    if (response.trim() == "success") {
+                        row.fadeOut(500, function () {
+                            $(this).remove();
+                        });
+                    } else {
+                        alert("Failed to delete the client.");
+                    }
+                }
+            });
+        }
+    });
+});
+</script>
+
+      
 </body>
 </html>

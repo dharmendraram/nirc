@@ -70,7 +70,7 @@
                                         <td>{$row['created_date']}</td>
                                         <td>
                                             <button class='btn btn-warning btn-sm'>Edit</button>
-                                            <button class='btn btn-danger btn-sm'>Delete</button>
+                                            <button class='btn btn-danger btn-sm delete-services' data-id='{$row['sid']}'>Delete</button>
                                         </td>
                                       </tr>";
                             }
@@ -126,5 +126,39 @@
         lucide.createIcons();
         let table = new DataTable('#myTable');
     </script>
+
+
+<script>
+$(document).ready(function () {
+    $(".delete-services").click(function () {
+        var servicesId = $(this).data("id");
+        var row = $(this).closest("tr");
+
+        console.log("Attempting to delete Service ID:", servicesId); // Debugging
+
+        if (confirm("Are you sure you want to delete this service?")) {
+            $.ajax({
+                url: "manageServices.php",
+                type: "POST",
+                data: { delete_id: servicesId }, // Corrected variable name
+                success: function (response) {
+                    console.log("Response:", response); // Debugging
+
+                    if (response.trim() === "success") {
+                        row.fadeOut(500, function () { $(this).remove(); });
+                    } else {
+                        alert("Failed to delete the service: " + response);
+                    }
+                },
+                error: function(xhr, status, error) {
+                    console.error("AJAX Error:", status, error);
+                }
+            });
+        }
+    });
+});
+</script>
+
+
 </body>
 </html>
