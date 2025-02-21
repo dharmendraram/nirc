@@ -1,11 +1,11 @@
 
 <?php
-session_start();
+include 'logic/mlogin.php';
 if (!isset($_SESSION['user_id'])) {
     header("Location: login.php");
     exit();
 }
-include 'logic/mlogin.php';
+
 ?>
 <!DOCTYPE html>
 <html lang="en">

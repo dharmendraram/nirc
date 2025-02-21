@@ -1,5 +1,6 @@
 
 <?php
+session_start();
 include 'connect.php'; // Database connection
 
 // Handle form submission

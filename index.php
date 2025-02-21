@@ -1,3 +1,4 @@
+<?php include 'back/logic/mclient.php'; ?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -38,14 +39,14 @@
   <header id="header" class="header d-flex align-items-center sticky-top">
     <div class="container-fluid position-relative d-flex align-items-center">
 
-      <a href="index.html" class="d-flex align-items-center me-auto">
+      <a href="index.php" class="d-flex align-items-center me-auto">
           <img src="./assets/img/logo.png" alt="logo" width="auto" height="40">
       </a>
 
       <nav id="navmenu" class="navmenu ">
         <ul>
           <li><a href="#hero" class="active">Home</a></li>
-          <li><a href="#about">About</a></li>
+          <li><a href="#about">About <?php echo $totalClients; ?></a></li>
           <li><a href="#services">Services</a></li>
           <li><a href="#portfolio">Portfolio</a></li>
           <li><a href="#team">Team</a></li>
@@ -72,7 +73,7 @@
       </nav>
 
       <div class="console-login d-flex ms-auto">
-          <a href="http://127.0.0.1:5500/auth/login.html" target="_blank" class="btn btn-sm  btn-login">Console login</a> 
+          <a href="http://localhost/nirc/back/login.php" target="_blank" class="btn btn-sm  btn-login">Console login</a> 
       </div>
 
     </div>
