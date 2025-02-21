@@ -70,7 +70,7 @@
                     </div>
                     <div class="col-md-3 mb-3">
                         <div class="card" id = "totalTestmonial">
-                            <h3><?php echo $totalTestmonial; ?></h3>
+                            <h3><?php echo $totalTestimonial; ?></h3>
                             <p>Total Testimonial</p>
                         </div>    
                     </div>

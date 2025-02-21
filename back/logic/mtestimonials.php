@@ -68,5 +68,4 @@ $sql = "SELECT COUNT(*) AS total FROM testimonial";
 $result = $conn->query($sql);
 $row = $result->fetch_assoc();
 $totalTestimonial = $row['total'];
-
 ?>
