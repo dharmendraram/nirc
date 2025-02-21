@@ -1149,7 +1149,7 @@ section,
   background-color: var(--surface-color);
   text-align: center;
   border: 1px solid color-mix(in srgb, var(--default-color), transparent 85%);
-  padding: 20px 20px;
+  padding: 10px;
   transition: border ease-in-out 0.3s;
   height: 100%;
 }
@@ -1158,7 +1158,6 @@ section,
   margin: 0 auto;
   width: 64px;
   height: 64px;
-  background: var(--accent-color);
   border-radius: 4px;
   display: flex;
   align-items: center;
@@ -1777,14 +1776,22 @@ section,
   justify-content: center;
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 }
+
 .clients-item .card img{
-  width: 110px;
+  width:100px;
+  height: 100px;
 }
 .clients-item .card h2{
-  font-size: 20px;
-  margin-top: 10px;
+  font-size: 16px;
+  color: #060606;
+  margin-top: 5px;
+  margin-bottom: 0;
 }
+.clients-item .card p{
+  font-size: 12px;
+  color: #060606;
 
+}
 .purecounter::after {
   content: "+";
 }

@@ -1,7 +1,7 @@
 <?php
 $servername = "localhost"; // Change if your database is hosted elsewhere
 $username = "root"; // Replace with your database username
-$password = "root"; // Replace with your database password
+$password = ""; // Replace with your database password
 $dbname = "nirc_web"; // Replace with your database name
 
 // Create connection

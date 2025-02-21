@@ -53,7 +53,7 @@
           <li><a href="#about">About</a></li>
           <li><a href="#services">Services</a></li>
           <li><a href="#portfolio">Portfolio</a></li>
-          <li><a href="#team">Team</a></li>
+          <!-- <li><a href="#team">Team</a></li> -->
           <!-- <li class="dropdown"><a href="#"><span>Dropdown</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
             <ul>
               <li><a href="#">Dropdown 1</a></li>
@@ -95,7 +95,7 @@
             <p>Empowering businesses with stunning, responsive, and user-friendly websites built with the latest technologies.</p>
             <div class="d-flex">
               <a href="#about" class="btn-get-started">Get Started</a>
-              <a href="https://www.youtube.com/watch?v=Y7f98aduVJ8" class="glightbox btn-watch-video d-flex align-items-center"><i class="bi bi-play-circle"></i><span>Watch Video</span></a>
+              <!-- <a href="https://www.youtube.com/watch?v=Y7f98aduVJ8" class="glightbox btn-watch-video d-flex align-items-center"><i class="bi bi-play-circle"></i><span>Watch Video</span></a> -->
             </div>
           </div>
           <div class="col-lg-6 order-1 order-lg-2 hero-img" data-aos="zoom-out" data-aos-delay="100">
@@ -107,7 +107,7 @@
     </section><!-- /Hero Section -->
 
     <!-- Featured Services Section -->
-    <section id="featured-services" class="featured-services section">
+    <!-- <section id="featured-services" class="featured-services section">
       <div class="container-fluid">
         <div class="row gy-4">
           <div class="col-lg-4 d-flex" data-aos="fade-up" data-aos-delay="100">
@@ -116,7 +116,7 @@
               <h4><a href="" class="stretched-link">Lorem Ipsum</a></h4>
               <p>Voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi</p>
             </div>
-          </div><!-- End Service Item -->
+          </div>
 
           <div class="col-lg-4 d-flex" data-aos="fade-up" data-aos-delay="200">
             <div class="service-item position-relative">
@@ -124,18 +124,18 @@
               <h4><a href="" class="stretched-link">Sed ut perspici</a></h4>
               <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore</p>
             </div>
-          </div><!-- End Service Item -->
-
+          </div>
           <div class="col-lg-4 d-flex" data-aos="fade-up" data-aos-delay="300">
             <div class="service-item position-relative">
               <div class="icon"><i class="bi bi-calendar4-week icon"></i></div>
               <h4><a href="" class="stretched-link">Magni Dolores</a></h4>
               <p>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia</p>
             </div>
-          </div><!-- End Service Item -->
+          </div>
         </div>
       </div>
-    </section><!-- /Featured Services Section -->
+    </section> -->
+    <!-- /Featured Services Section -->
 
     <!-- About Section -->
     <section id="about" class="about section">
@@ -143,14 +143,14 @@
       <div class="container-fluid section-title" data-aos="fade-up">
         <span>About Us<br></span>
         <h2>About</h2>
-        <p>&quot;At NIRC, we turn visionary ideas into reality, shaping the digital landscape with cutting-edge software solutions.&quot;</p>
+        <p>We transform ideas into powerful digital solutions, ensuring innovation, efficiency & scalability</p>
       </div><!-- End Section Title -->
 
       <div class="container-fluid">
         <div class="row gy-4">
           <div class="col-lg-6 position-relative align-self-start" data-aos="fade-up" data-aos-delay="100">
             <img src="assets/img/about.png" class="img-fluid" alt="">
-            <a href="https://www.youtube.com/watch?v=Y7f98aduVJ8" class="glightbox pulsating-play-btn"></a>
+            <a href="" class="glightbox pulsating-play-btn"></a>
           </div>
           <div class="col-lg-6 content" data-aos="fade-up" data-aos-delay="200">
             <h3>National Incubation and Research Center</h3>
@@ -218,7 +218,7 @@
       <div class="container-fluid section-title" data-aos="fade-up">
         <span>Services</span>
         <h2>Services</h2>
-        <p>Necessitatibus eius consequatur ex aliquid fuga eum quidem sint consectetur velit</p>
+        <p>We provide innovative software solutions tailord to diverse industries and organizations.</p>
       </div><!-- End Section Title -->
 
       <div class="container-fluid">
@@ -233,7 +233,7 @@
             $image = base64_encode($row['image']);
             $imageSrc = "data:image/jpeg;base64," . $image;
             ?>
-            <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="100">
+            <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="100">
                 <div class="service-item position-relative">
                     <div class="icon">
                         <img src="<?php echo $imageSrc; ?>" alt="<?php echo htmlspecialchars($row['title']); ?>" height="50px" width="50px" />
@@ -261,86 +261,81 @@
       <div class="container-fluid section-title" data-aos="fade-up">
         <span>Portfolio</span>
         <h2>Portfolio</h2>
-        <p>Necessitatibus eius consequatur ex aliquid fuga eum quidem sint consectetur velit</p>
+        <p>We take pride in delivering cutting-edge software solutions across various industries and organizations.</p>
       </div><!-- End Section Title -->
 
       <div class="container-fluid">
-
         <div class="isotope-layout" data-default-filter="*" data-layout="masonry" data-sort="original-order">
-
-       
-
           <div class="row gy-4 isotope-container" data-aos="fade-up" data-aos-delay="200">
           <?php
-$sql = "SELECT pid, image1, image2, image3, image4, image5, title, description FROM portfolio ORDER BY pid DESC";
-$result = $conn->query($sql);
+            $sql = "SELECT pid, image1, image2, image3, image4, image5, title, description FROM portfolio ORDER BY pid DESC";
+            $result = $conn->query($sql);
 
-if ($result->num_rows > 0) {
-    while ($row = $result->fetch_assoc()) {
-        $images = [];
-        for ($i = 1; $i <= 5; $i++) {
-            if (!empty($row["image$i"])) {
-                $images[] = base64_encode($row["image$i"]);
-            }
-        }
-        $mainImage = $images[0];
+              if ($result->num_rows > 0) {
+                  while ($row = $result->fetch_assoc()) {
+                      $images = [];
+                      for ($i = 1; $i <= 5; $i++) {
+                          if (!empty($row["image$i"])) {
+                              $images[] = base64_encode($row["image$i"]);
+                          }
+                      }
+                      $mainImage = $images[0];
+                      ?>
+                      <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-app">
+                          <div class="portfolio-card">
+                              <img src="data:image/jpeg;base64,<?php echo $mainImage; ?>" class="img-fluid portfolio-thumb" alt="">
+                              <div class="portfolio-info">
+                                  <h4><?php echo htmlspecialchars($row['title']); ?></h4>
+                                  <p><?php echo htmlspecialchars($row['description']); ?></p>
+                                  <button type="button" class="btn btn-sm btn-primary gallery-btn" data-bs-toggle="modal" data-bs-target="#portfolioModal<?php echo $row['pid']; ?>">
+                                      <i class="fas fa-images"></i> View Gallery
+                                  </button>
+                              </div>
+                          </div>
+                      </div>
+
+                      <!-- Modal -->
+                      <div class="modal fade" id="portfolioModal<?php echo $row['pid']; ?>" tabindex="-1" aria-labelledby="portfolioModalLabel<?php echo $row['pid']; ?>" aria-hidden="true">
+                          <div class="modal-dialog modal-xl modal-dialog-centered">
+                              <div class="modal-content">
+                                  <div class="modal-header">
+                                      <h5 class="modal-title" id="portfolioModalLabel<?php echo $row['pid']; ?>">
+                                          <i class="fas fa-folder-open me-2"></i><?php echo htmlspecialchars($row['title']); ?>
+                                      </h5>
+                                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                  </div>
+                                  <div class="modal-body p-0">
+                                      <div id="carousel<?php echo $row['pid']; ?>" class="carousel slide" data-bs-ride="carousel">
+                                          <div class="carousel-inner">
+                                              <?php foreach ($images as $index => $imageData): ?>
+                                                  <div class="carousel-item <?php echo $index === 0 ? 'active' : ''; ?>">
+                                                      <div class="carousel-image-container">
+                                                          <img src="data:image/jpeg;base64,<?php echo $imageData; ?>" class="carousel-image" alt="">
+                                                      </div>
+                                                  </div>
+                                              <?php endforeach; ?>
+                                          </div>
+                                          <?php if (count($images) > 1): ?>
+                                              <button class="carousel-control-prev" type="button" data-bs-target="#carousel<?php echo $row['pid']; ?>" data-bs-slide="prev">
+                                                  <span class="carousel-control-prev-icon carousel-icon" aria-hidden="true"></span>
+                                                  <span class="visually-hidden">Previous</span>
+                                              </button>
+                                              <button class="carousel-control-next" type="button" data-bs-target="#carousel<?php echo $row['pid']; ?>" data-bs-slide="next">
+                                                  <span class="carousel-control-next-icon carousel-icon" aria-hidden="true"></span>
+                                                  <span class="visually-hidden">Next</span>
+                                              </button>
+                                          <?php endif; ?>
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                      <?php
+                  }
+              } else {
+                  echo "<p class='text-center'>No portfolio items found</p>";
+              }
         ?>
-        <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-app">
-            <div class="portfolio-card">
-                <img src="data:image/jpeg;base64,<?php echo $mainImage; ?>" class="img-fluid portfolio-thumb" alt="">
-                <div class="portfolio-info">
-                    <h4><?php echo htmlspecialchars($row['title']); ?></h4>
-                    <p><?php echo htmlspecialchars($row['description']); ?></p>
-                    <button type="button" class="btn btn-sm btn-primary gallery-btn" data-bs-toggle="modal" data-bs-target="#portfolioModal<?php echo $row['pid']; ?>">
-                        <i class="fas fa-images"></i> View Gallery
-                    </button>
-                </div>
-            </div>
-        </div>
-
-        <!-- Modal -->
-        <div class="modal fade" id="portfolioModal<?php echo $row['pid']; ?>" tabindex="-1" aria-labelledby="portfolioModalLabel<?php echo $row['pid']; ?>" aria-hidden="true">
-            <div class="modal-dialog modal-xl modal-dialog-centered">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="portfolioModalLabel<?php echo $row['pid']; ?>">
-                            <i class="fas fa-folder-open me-2"></i><?php echo htmlspecialchars($row['title']); ?>
-                        </h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body p-0">
-                        <div id="carousel<?php echo $row['pid']; ?>" class="carousel slide" data-bs-ride="carousel">
-                            <div class="carousel-inner">
-                                <?php foreach ($images as $index => $imageData): ?>
-                                    <div class="carousel-item <?php echo $index === 0 ? 'active' : ''; ?>">
-                                        <div class="carousel-image-container">
-                                            <img src="data:image/jpeg;base64,<?php echo $imageData; ?>" class="carousel-image" alt="">
-                                        </div>
-                                    </div>
-                                <?php endforeach; ?>
-                            </div>
-                            <?php if (count($images) > 1): ?>
-                                <button class="carousel-control-prev" type="button" data-bs-target="#carousel<?php echo $row['pid']; ?>" data-bs-slide="prev">
-                                    <span class="carousel-control-prev-icon carousel-icon" aria-hidden="true"></span>
-                                    <span class="visually-hidden">Previous</span>
-                                </button>
-                                <button class="carousel-control-next" type="button" data-bs-target="#carousel<?php echo $row['pid']; ?>" data-bs-slide="next">
-                                    <span class="carousel-control-next-icon carousel-icon" aria-hidden="true"></span>
-                                    <span class="visually-hidden">Next</span>
-                                </button>
-                            <?php endif; ?>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <?php
-    }
-} else {
-    echo "<p class='text-center'>No portfolio items found</p>";
-}
-?>
-
 
                 <style>
 
@@ -464,7 +459,8 @@ if ($result->num_rows > 0) {
                 .portfolio-item {
                     animation: fadeInUp 0.5s ease forwards;
                 }
-                 </style> 
+                </style> 
+
           </div><!-- End Portfolio Container -->
         </div>
       </div>
@@ -524,7 +520,7 @@ if ($result->num_rows > 0) {
                                   <div class="card">
                                       <img src="' . $imageSrc . '" alt="' . htmlspecialchars($row['cname']) . '">
                                       <h2>' . htmlspecialchars($row['cname']) . '</h2>
-                                      <h5 style="font-size:12px;">' . htmlspecialchars($row['caddress']) . '</h5>
+                                      <p>' . htmlspecialchars($row['caddress']) . '</p>
                                   </div>
                               </div>
                           </div>';
@@ -618,8 +614,8 @@ if ($result->num_rows > 0) {
     </section><!-- /Testimonials Section -->
 
         <!-- Team Section -->
-        <section id="team" class="team section light-background">
-          <!-- Section Title -->
+        <!-- <section id="team" class="team section light-background">
+         
           <div class="container-fluid section-title" data-aos="fade-up">
             <span>Team</span>
             <h2>Team</h2>
@@ -656,18 +652,18 @@ if ($result->num_rows > 0) {
               <div class="swiper-wrapper">
                 <div class="swiper-slide">
                 <?php
-                  // Fetch team members
+                 
                   $sql = "SELECT id, name, image, designation FROM team ORDER BY id DESC";
                   $result = $conn->query($sql);
 
                   if ($result->num_rows > 0) {
-                      // Loop through each team member
+                      
                       while ($row = $result->fetch_assoc()) {
-                          // Encode image data
+                          
                           $imageData = base64_encode($row['image']);
                           $imageSrc = "data:image/jpeg;base64," . $imageData;
 
-                          // Output the HTML structure for each team member
+
                           echo '
                           <div class="member">
                               <div class="pic">
@@ -694,7 +690,8 @@ if ($result->num_rows > 0) {
               <div class="swiper-pagination"></div>
             </div>
           </div>
-        </section><!-- /team Section -->
+        </section> -->
+        <!-- /team Section -->
 
 
     <!-- Contact Section -->
@@ -730,7 +727,7 @@ if ($result->num_rows > 0) {
                   <i class="bi bi-envelope flex-shrink-0"></i>
                   <div>
                     <h3>Email Us</h3>
-                    <p>hr@nirc.com.np</p>
+                    <p>admin@nirc.com.np</p>
                   </div>
                 </div>
 
@@ -807,7 +804,7 @@ if ($result->num_rows > 0) {
             <p class="mb-3">"NIRC (National Incubation & Research Center) empowers innovation, research, and entrepreneurship, fostering groundbreaking solutions for a better future."</p>
             <p><strong class="text-dark me-2"><i class="bi bi-geo-alt-fill"></i></strong> <span class="text-dark">Gaushala, Kathmandu, Nepal</span></p>
             <p><strong class="text-danger me-2"><a href="tel:9849044721" style="font-size: 14px; color: black;" target="_blank"><i class="bi bi-telephone-forward"></i></strong> <span>+977 984-9044721</span></a></p>
-            <p><strong class="text-danger me-2"><a href="maito:hr@nirc.com.np" target="_blank" style="font-size: 14px; color: black;"><i class="bi bi-envelope"></i></strong> <span>hr@nirc.com.np</span></a></p>
+            <p><strong class="text-danger me-2"><a href="maito:admin@nirc.com.np" target="_blank" style="font-size: 14px; color: black;"><i class="bi bi-envelope"></i></strong> <span>admin@nirc.com.np</span></a></p>
           </div>
         </div>
 
@@ -829,7 +826,6 @@ if ($result->num_rows > 0) {
             <li><i class="bi bi-chevron-right"></i> <a href="#">Mobile Development</a></li>
             <li><i class="bi bi-chevron-right"></i> <a href="#">Product Management</a></li>
             <li><i class="bi bi-chevron-right"></i> <a href="#">Marketing</a></li>
-            <li><i class="bi bi-chevron-right"></i> <a href="#">Domain & Hosting</a></li>
           </ul>
         </div>
 
