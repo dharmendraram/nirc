@@ -58,122 +58,225 @@
                     </div>
 
                     <div class="col-md-12">
-                        <table class="table table-success table-striped mt-2" id="myTable">
-                        <thead class="table-dark">
-                            <tr>
-                                <th>ID</th>
-                                <th>Image</th>
-                                <th>Name</th>
-                                <th>Address</th>
-                                <th>Created Date</th>
-                                <th>Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                        <?php
-        $sql = "SELECT cid, cname, cimage, caddress, createdDate FROM clients ORDER BY cid DESC";
-        $result = $conn->query($sql);
+                            <table class="table table-success table-striped mt-2" id="myTable">
+                            <thead class="table-dark">
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Image</th>
+                                    <th>Name</th>
+                                    <th>Address</th>
+                                    <th>Created Date</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            <?php
+                                $sql = "SELECT cid, cname, cimage, caddress, createdDate FROM clients ORDER BY cid DESC";
+                                $result = $conn->query($sql);
 
-        if ($result->num_rows > 0) {
-            while ($row = $result->fetch_assoc()) {
-                $image = base64_encode($row['cimage']);
-                $imageSrc = "data:image/jpeg;base64," . $image;
+                                if ($result->num_rows > 0) {
+                                    while ($row = $result->fetch_assoc()) {
+                                        $image = base64_encode($row['cimage']);
+                                        $imageSrc = "data:image/jpeg;base64," . $image;
 
-                echo "<tr id='row-{$row['cid']}'>
-                        <td>{$row['cid']}</td>
-                        <td><img src='$imageSrc' class='client-image' style='width:50px;height:50px;'></td>
-                        <td>{$row['cname']}</td>
-                        <td>{$row['caddress']}</td>
-                        <td>{$row['createdDate']}</td>
-                        <td>
-                            <button class='btn btn-warning btn-sm'>Edit</button>
-                            <button class='btn btn-danger btn-sm delete-client' data-id='{$row['cid']}'>Delete</button>
-                        </td>
-                    </tr>";
-            }
-        } else {
-            echo "<tr><td colspan='6' class='text-center'>No clients found</td></tr>";
-        }
-        ?>
+                                        echo "<tr id='row-{$row['cid']}'>
+                                                <td>{$row['cid']}</td>
+                                                <td><img src='$imageSrc' class='client-image' style='width:50px;height:50px;'></td>
+                                                <td>{$row['cname']}</td>
+                                                <td>{$row['caddress']}</td>
+                                                <td>{$row['createdDate']}</td>
+                                                <td>
+                                                    <button class='btn btn-warning btn-sm edit-client'>Edit</button>
+                                                    <button class='btn btn-danger btn-sm delete-client' data-id='{$row['cid']}'>Delete</button>
+                                                </td>
+                                            </tr>";
+                                    }
+                                } else {
+                                    echo "<tr><td colspan='6' class='text-center'>No clients found</td></tr>";
+                                }
+                                ?>
 
-                        </tbody>
-                        </table>
+                            </tbody>
+                            </table>
+                        </div>
+
                     </div>
-
                 </div>
-            </div>
-            <!-- Page Header -->
+                <!-- Page Header -->
 
-        </main>
+           
+        
+                <!-- Add Client Modal -->
+                <div class="modal fade" id="addClientModal" tabindex="-1" aria-labelledby="addClientModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="addClientModalLabel">Add New Client</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <form method="POST" enctype="multipart/form-data">
+                                    <div class="mb-3">
+                                        <label class="form-label">Name</label>
+                                        <input type="text" class="form-control" name="cname" required>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label">Image</label>
+                                        <input type="file" class="form-control" name="cimage" accept="image/*" required>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label">Address</label>
+                                        <input type="text" class="form-control" name="caddress" required>
+                                    </div>
+                                    <button type="submit" class="btn btn-success">Save Client</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Edit Client Modal -->
+                <div class="modal fade" id="editClientModal" tabindex="-1" aria-labelledby="editClientModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editClientModalLabel">Edit Client</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="editClientForm" method="POST" enctype="multipart/form-data">
+                    <input type="hidden" id="editClientId" name="edit_client_id">
+                    <div class="mb-3">
+                        <label class="form-label">Name</label>
+                        <input type="text" class="form-control" id="editCname" name="cname" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Address</label>
+                        <input type="text" class="form-control" id="editCaddress" name="caddress" required>
+                    </div>
+                    <button type="submit" class="btn btn-success">Update Client</button>
+                </form>
+            </div>
+        </div>
     </div>
+</div>
 
-    
-            <!-- Add Client Modal -->
-            <div class="modal fade" id="addClientModal" tabindex="-1" aria-labelledby="addClientModalLabel" aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="addClientModalLabel">Add New Client</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                            <form method="POST" enctype="multipart/form-data">
-                                <div class="mb-3">
-                                    <label class="form-label">Name</label>
-                                    <input type="text" class="form-control" name="cname" required>
-                                </div>
-                                <div class="mb-3">
-                                    <label class="form-label">Image</label>
-                                    <input type="file" class="form-control" name="cimage" accept="image/*" required>
-                                </div>
-                                <div class="mb-3">
-                                    <label class="form-label">Address</label>
-                                    <input type="text" class="form-control" name="caddress" required>
-                                </div>
-                                <button type="submit" class="btn btn-success">Save Client</button>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
+                </main>
+        </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://unpkg.com/lucide@latest"></script>
+
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script src="https://unpkg.com/lucide@latest"></script>
+        <script>
+            // Initialize Lucide icons
+            lucide.createIcons();
+            let table = new DataTable('#myTable');
+        
+        </script>
+
+
     <script>
-        // Initialize Lucide icons
-        lucide.createIcons();
-        let table = new DataTable('#myTable');
-    
-    </script>
+            $(document).ready(function () {
+                $(".delete-client").click(function () {
+                    var clientId = $(this).data("id");
+                    var row = $("#row-" + clientId); // Select the row to remove on success
 
-
-<script>
-$(document).ready(function () {
-    $(".delete-client").click(function () {
-        var clientId = $(this).data("id");
-        var row = $("#row-" + clientId); // Select the row to remove on success
-
-        if (confirm("Are you sure you want to delete this client?")) {
-            $.ajax({
-                url: "manageClient.php",
-                type: "POST",
-                data: { delete_id: clientId },
-                success: function (response) {
-                    if (response.trim() == "success") {
-                        row.fadeOut(500, function () {
-                            $(this).remove();
+                    if (confirm("Are you sure you want to delete this client?")) {
+                        $.ajax({
+                            url: "manageClient.php",
+                            type: "POST",
+                            data: { delete_id: clientId },
+                            success: function (response) {
+                                if (response.trim() == "success") {
+                                    row.fadeOut(500, function () {
+                                        $(this).remove();
+                                    });
+                                } else {
+                                    alert("Failed to delete the client.");
+                                }
+                            }
                         });
-                    } else {
-                        alert("Failed to delete the client.");
                     }
-                }
+                });
             });
-        }
-    });
-});
-</script>
+            </script>
 
-      
-</body>
-</html>
+
+        <script>
+            $(document).ready(function () {
+                // Handle Edit button click
+                $(".edit-client").click(function () {
+                    var clientId = $(this).closest('tr').find('td:first').text().trim(); // Ensure we get the correct client ID
+                    
+                    console.log("Client ID:", clientId); // Debugging line to check clientId value
+                    
+                    // Fetch client data using AJAX
+                    $.ajax({
+                        url: "mclient.php", // Ensure this path is correct for your server-side script
+                        type: "POST",
+                        data: { edit_id: clientId },
+                        success: function (response) {
+                            console.log("Response:", response); // Debugging line to check the response
+
+                            // Parse the JSON response from the server
+                            var client = JSON.parse(response);
+                            
+                            // Check if client data is returned correctly
+                            if (client) {
+                                console.log("Client data:", client); // Debugging the client object
+
+                                // Pre-fill the modal with client data
+                                $('#editClientId').val(client.cid);
+                                $('#editCname').val(client.cname);
+                                $('#editCaddress').val(client.caddress);
+                                
+                                // Show the modal
+                                $('#editClientModal').modal('show'); 
+                            } else {
+                                alert("Client data not found or invalid response.");
+                            }
+                        },
+                        error: function (xhr, status, error) {
+                            console.error("AJAX error:", error); // Debugging AJAX error
+                            alert("An error occurred while fetching the client data.");
+                        }
+                    });
+                });
+
+                // Handle Edit form submission (AJAX)
+                $("#editClientForm").submit(function (e) {
+                    e.preventDefault();
+
+                    var formData = new FormData(this);
+                    $.ajax({
+                        url: "manageClient.php", // Ensure this path is correct for your server-side script
+                        type: "POST",
+                        data: formData,
+                        contentType: false,
+                        processData: false,
+                        success: function (response) {
+                            if (response.trim() == "success") {
+                                location.reload(); // Reload the page to reflect changes
+                            } else {
+                                alert("Failed to update the client.");
+                            }
+                        },
+                        error: function (xhr, status, error) {
+                            console.error("AJAX error:", error); // Debugging AJAX error
+                            alert("An error occurred while updating the client.");
+                        }
+                    });
+                });
+            });
+        </script>
+
+
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+
+        
+    </body>
+    </html>

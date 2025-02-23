@@ -1,5 +1,21 @@
 
-<?php include 'logic/mtestimonials.php'; ?>
+<?php 
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+include 'logic/mtestimonials.php'; 
+
+// Handle DELETE
+if (isset($_GET['delete_id'])) {
+    $id = $_GET['delete_id'];
+    $stmt = $conn->prepare("DELETE FROM testimonial WHERE id = ?");
+    $stmt->bind_param("i", $id);
+    if ($stmt->execute()) {
+        echo "<script>alert('Testimonials deleted successfully'); window.location.href='manageTestimonials.php';</script>";
+    } else {
+        echo "<script>alert('Error: " . $stmt->error . "');</script>";
+    }
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -63,18 +79,22 @@
                                         $imageSrc = "data:image/jpeg;base64," . $image;
 
                                         echo "<tr>
-                                                <td>{$row['id']}</td>
-                                                <td><img src='$imageSrc' class='testimonial-image'></td>
-                                                <td>{$row['quote']}</td>
-                                                <td>{$row['name']}</td>
-                                                <td>{$row['designation']}</td>
-                                                <td>{$row['address']}</td>
-                                                <td>{$row['created_date']}</td>
-                                                <td>
-                                                    <button class='btn btn-warning btn-sm'>Edit</button>
-                                                    <button class='btn btn-danger btn-sm delete-testimonial' data-id='{$row['id']}'>Delete</button>
-                                                </td>
-                                            </tr>";
+                                        <td>{$row['id']}</td>
+                                        <td><img src='$imageSrc' class='testimonial-image'></td>
+                                        <td>{$row['quote']}</td>
+                                        <td>{$row['name']}</td>
+                                        <td>{$row['designation']}</td>
+                                        <td>{$row['address']}</td>
+                                        <td>{$row['created_date']}</td>
+                                        <td>
+                                            <button class='btn btn-warning btn-sm'>Edit</button>
+                                            <a href='manageTestimonials.php?delete_id={$row['id']}' class='btn btn-danger btn-sm' 
+                                            onclick='return confirm(\"Are you sure you want to delete this testimonials?\")'>
+                                             Delete
+                                            </a>
+                                        </td>
+                                    </tr>";
+                                
                                     }
                                 } else {
                                     echo "<tr><td colspan='8' class='text-center'>No testimonials found</td></tr>";
@@ -97,34 +117,77 @@
                             <h5 class="modal-title" id="addTestimonialModalLabel">Add New Testimonial</h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
+                     <div class="modal-body">
+                        <form method="POST" enctype="multipart/form-data">
+                            <div class="mb-3">
+                                <label class="form-label">Quote</label>
+                                <textarea class="form-control" name="quote" rows="3" required></textarea>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Name</label>
+                                <input type="text" class="form-control" name="name" required>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Designation</label>
+                                <input type="text" class="form-control" name="designation" required>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Address</label>
+                                <input type="text" class="form-control" name="address" required>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Image (Required)</label>
+                                <input type="file" class="form-control" name="image" accept="image/*" required>
+                            </div>
+                            <button type="submit" class="btn btn-success" name="addTestimonial">Save Testimonial</button>
+                        </form>
+                    </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <!-- Edit Testimonial Modal -->
+            <div class="modal fade" id="editTestimonialModal" tabindex="-1" aria-labelledby="editTestimonialModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="editTestimonialModalLabel">Edit Testimonial</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
                         <div class="modal-body">
                             <form method="POST" enctype="multipart/form-data">
+                                <input type="hidden" name="edit_id" id="edit_id">
                                 <div class="mb-3">
                                     <label class="form-label">Quote</label>
-                                    <textarea class="form-control" name="quote" rows="3" required></textarea>
+                                    <textarea name="quote" id="edit_quote" class="form-control" required></textarea>
                                 </div>
                                 <div class="mb-3">
                                     <label class="form-label">Name</label>
-                                    <input type="text" class="form-control" name="name" required>
+                                    <input type="text" name="name" id="edit_name" class="form-control" required>
                                 </div>
                                 <div class="mb-3">
                                     <label class="form-label">Designation</label>
-                                    <input type="text" class="form-control" name="designation" required>
+                                    <input type="text" name="designation" id="edit_designation" class="form-control" required>
                                 </div>
                                 <div class="mb-3">
                                     <label class="form-label">Address</label>
-                                    <input type="text" class="form-control" name="address" required>
+                                    <input type="text" name="address" id="edit_address" class="form-control" required>
                                 </div>
                                 <div class="mb-3">
-                                    <label class="form-label">Image (Required)</label>
-                                    <input type="file" class="form-control" name="image" accept="image/*" required>
+                                    <label class="form-label">Upload New Image (Optional)</label>
+                                    <input type="file" name="image" class="form-control">
                                 </div>
-                                <button type="submit" class="btn btn-success">Save Testimonial</button>
+                                <button type="submit" class="btn btn-primary" name="updateTestimonial">Update</button>
                             </form>
+
                         </div>
                     </div>
                 </div>
             </div>
+
+
+
 
         </main>
     </div>
@@ -138,38 +201,27 @@
         let table = new DataTable('#myTable');
     </script>
 
-
     <script>
-    $(document).ready(function () {
-        $(".delete-testimonial").click(function () {
-            var testimonialId = $(this).data("id");
-            var row = $(this).closest("tr");
+        $(document).ready(function () {
+        $('.btn-warning').click(function () {
+            let row = $(this).closest('tr');
+            let id = row.find('td:first').text().trim();
+            let quote = row.find('td:nth-child(3)').text().trim();
+            let name = row.find('td:nth-child(4)').text().trim();
+            let designation = row.find('td:nth-child(5)').text().trim();
+            let address = row.find('td:nth-child(6)').text().trim();
 
-            console.log("Attempting to delete Testimonial ID:", testimonialId); // Debugging
+            $('#edit_id').val(id);
+            $('#edit_quote').val(quote);
+            $('#edit_name').val(name);
+            $('#edit_designation').val(designation);
+            $('#edit_address').val(address);
 
-            if (confirm("Are you sure you want to delete this testimonial?")) {
-                $.ajax({
-                    url: "manageTestimonials.php",
-                    type: "POST",
-                    data: { delete_id: testimonialId }, // Sending correct ID
-                    success: function (response) {
-                        console.log("Response:", response); // Debugging
-
-                        if (response.trim() === "success") {
-                            row.fadeOut(500, function () { $(this).remove(); });
-                        } else {
-                            alert("Failed to delete the testimonial: " + response);
-                        }
-                    },
-                    error: function(xhr, status, error) {
-                        console.error("AJAX Error:", status, error);
-                    }
-                });
-            }
+            var editModal = new bootstrap.Modal(document.getElementById('editTestimonialModal'));
+            editModal.show();
         });
     });
     </script>
-
 
 
 </body>

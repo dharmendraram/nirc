@@ -1,5 +1,6 @@
 
-<?php include 'logic/mportfolio.php'; ?>
+<?php include 'logic/mportfolio.php'; 
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -96,7 +97,17 @@
                                         <td>{$row['description']}</td>
                                         <td>{$row['created_date']}</td>
                                         <td>
-                                            <button class='btn btn-warning btn-sm'>Edit</button>
+                                        <button class='btn btn-warning btn-sm edit-portfolio' 
+                                                data-id='{$row['pid']}' 
+                                                data-title='{$row['title']}' 
+                                                data-description='{$row['description']}'
+                                                data-image1='{$image1Src}' 
+                                                data-image2='{$image2Src}' 
+                                                data-image3='{$image3Src}' 
+                                                data-image4='{$image4Src}' 
+                                                data-image5='{$image5Src}'>
+                                                Edit
+                                            </button>                                            
                                             <button class='btn btn-danger btn-sm delete-portfolio' data-id='{$row['pid']}'>Delete</button>
                                         </td>
                                       </tr>";
@@ -158,6 +169,57 @@
                 </div>
             </div>
 
+
+            <!-- Edit Portfolio Modal -->
+            <div class="modal fade" id="editPortfolioModal" tabindex="-1" aria-labelledby="editPortfolioModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="editPortfolioModalLabel">Edit Portfolio</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <form id="editPortfolioForm" enctype="multipart/form-data">
+                                <input type="hidden" name="edit_pid" id="edit_pid">
+
+                                <div class="mb-3">
+                                    <label class="form-label">Title</label>
+                                    <input type="text" class="form-control" name="title" id="edit_title" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Description</label>
+                                    <textarea class="form-control" name="description" id="edit_description" required></textarea>
+                                </div>
+
+                                <!-- Image Previews & Upload -->
+                                <div class="mb-3">
+                                    <label class="form-label">Current Images</label>
+                                    <div class="d-flex gap-2">
+                                        <img id="preview_image1" class="portfolio-image-preview">
+                                        <img id="preview_image2" class="portfolio-image-preview">
+                                        <img id="preview_image3" class="portfolio-image-preview">
+                                        <img id="preview_image4" class="portfolio-image-preview">
+                                        <img id="preview_image5" class="portfolio-image-preview">
+                                    </div>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label class="form-label">Replace Images (Optional)</label>
+                                    <input type="file" class="form-control" name="image1">
+                                    <input type="file" class="form-control mt-2" name="image2">
+                                    <input type="file" class="form-control mt-2" name="image3">
+                                    <input type="file" class="form-control mt-2" name="image4">
+                                    <input type="file" class="form-control mt-2" name="image5">
+                                </div>
+
+                                <button type="submit" class="btn btn-primary">Update Portfolio</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
         </main>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
@@ -201,6 +263,55 @@
                     }
                 });
             });
+    </script>
+
+
+
+    <script>
+        $(document).ready(function () {
+        // Open Edit Modal and Fill Data
+        $('.edit-portfolio').click(function () {
+            let pid = $(this).data('id');
+            let title = $(this).data('title');
+            let description = $(this).data('description');
+            
+            $('#edit_pid').val(pid);
+            $('#edit_title').val(title);
+            $('#edit_description').val(description);
+
+            // Load image previews
+            $('#preview_image1').attr('src', $(this).data('image1'));
+            $('#preview_image2').attr('src', $(this).data('image2'));
+            $('#preview_image3').attr('src', $(this).data('image3'));
+            $('#preview_image4').attr('src', $(this).data('image4'));
+            $('#preview_image5').attr('src', $(this).data('image5'));
+
+            var editModal = new bootstrap.Modal(document.getElementById('editPortfolioModal'));
+            editModal.show();
+        });
+
+        // Submit Edit Form via AJAX
+        $('#editPortfolioForm').submit(function (e) {
+            e.preventDefault();
+            let formData = new FormData(this);
+
+            $.ajax({
+                url: 'maportfolio.php',
+                type: 'POST',
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function (response) {
+                    alert(response);
+                    location.reload();
+                },
+                error: function () {
+                    alert("Error updating portfolio.");
+                }
+            });
+        });
+    });
+
     </script>
 
 

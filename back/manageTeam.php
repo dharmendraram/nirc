@@ -1,5 +1,46 @@
 
 <?php include 'logic/mteam.php'; ?>
+
+<?php
+
+// Handle DELETE
+if (isset($_GET['delete_id'])) {
+    $id = $_GET['delete_id'];
+    $stmt = $conn->prepare("DELETE FROM team WHERE id = ?");
+    $stmt->bind_param("i", $id);
+    if ($stmt->execute()) {
+        echo "<script>alert('Team member deleted successfully'); window.location.href='manageTeam.php';</script>";
+    } else {
+        echo "<script>alert('Error: " . $stmt->error . "');</script>";
+    }
+}
+
+// Handle UPDATE
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['edit_id'])) {
+    $id = $_POST['edit_id'];
+    $name = $_POST['name'];
+    $designation = $_POST['designation'];
+
+    if ($_FILES['image']['size'] > 0) {
+        // New image uploaded
+        $imageData = file_get_contents($_FILES['image']['tmp_name']);
+        $stmt = $conn->prepare("UPDATE team SET name=?, designation=?, image=? WHERE id=?");
+        $stmt->bind_param("sssi", $name, $designation, $imageData, $id);
+    } else {
+        // Keep existing image
+        $stmt = $conn->prepare("UPDATE team SET name=?, designation=? WHERE id=?");
+        $stmt->bind_param("ssi", $name, $designation, $id);
+    }
+
+    if ($stmt->execute()) {
+        echo "<script>alert('Team member updated successfully'); window.location.href='manageTeam.php';</script>";
+    } else {
+        echo "<script>alert('Error: " . $stmt->error . "');</script>";
+    }
+}
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -68,8 +109,16 @@
                                     <td>{$row['name']}</td>
                                     <td>{$row['designation']}</td>
                                     <td>
-                                        <button class='btn btn-warning btn-sm'>Edit</button>
-                                        <button class='btn btn-danger btn-sm'>Delete</button>
+                                        <button class='btn btn-warning btn-sm edit-btn' 
+                                            data-id='{$row['id']}' 
+                                            data-name='{$row['name']}'
+                                            data-designation='{$row['designation']}'>
+                                            Edit
+                                        </button>
+                                    <a href='manageTeam.php?delete_id={$row['id']}' class='btn btn-danger btn-sm' 
+                                        onclick='return confirm(\"Are you sure you want to delete this member?\")'>
+                                        Delete
+                                    </a>
                                     </td>
                                   </tr>";
                         }
@@ -115,6 +164,40 @@
                 </div>
             </div>
 
+
+            <!-- Edit Modal -->
+            <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="editModalLabel">Edit Team Member</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <form method="POST" enctype="multipart/form-data">
+                                <input type="hidden" name="edit_id" id="edit_id">
+                                <div class="mb-3">
+                                    <label class="form-label">Name</label>
+                                    <input type="text" name="name" id="edit_name" class="form-control" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Designation</label>
+                                    <input type="text" name="designation" id="edit_designation" class="form-control" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Upload New Image (Optional)</label>
+                                    <input type="file" name="image" class="form-control">
+                                </div>
+                                <button type="submit" class="btn btn-primary">Update</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+
            
         </main>
     </div>
@@ -126,6 +209,23 @@
         // Initialize Lucide icons
         lucide.createIcons();
         let table = new DataTable('#myTable');
+    </script>
+
+    <script>
+        $(document).ready(function () {
+            $('.edit-btn').click(function () {
+                let id = $(this).data('id');
+                let name = $(this).data('name');
+                let designation = $(this).data('designation');
+
+                $('#edit_id').val(id);
+                $('#edit_name').val(name);
+                $('#edit_designation').val(designation);
+
+                var editModal = new bootstrap.Modal(document.getElementById('editModal'));
+                editModal.show();
+            });
+        });
     </script>
 </body>
 </html>

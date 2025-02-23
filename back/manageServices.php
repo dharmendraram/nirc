@@ -35,7 +35,7 @@
                     </div>
 
                     <div class="col-md-12 text-end">
-                    <button class="btn btn-primary add-service-btn" data-bs-toggle="modal" data-bs-target="#addServiceModal">
+                    <button class="btn btn-primary add-service-btn mb-2" data-bs-toggle="modal" data-bs-target="#addServiceModal" >
                         <i data-lucide="plus"></i> Add Service
                     </button>
                     </div>
@@ -83,9 +83,6 @@
                     </div>
                 </div>
             </div>
-           
-
-
 
             <!-- Add Service Modal -->
             <div class="modal fade" id="addServiceModal" tabindex="-1" aria-labelledby="addServiceModalLabel" aria-hidden="true">
@@ -116,6 +113,40 @@
                 </div>
             </div>
 
+           <!-- Edit Service Modal -->
+            <div class="modal fade" id="editServiceModal" tabindex="-1" aria-labelledby="editServiceModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="editServiceModalLabel">Edit Service</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <form id="editServiceForm" method="POST" enctype="multipart/form-data">
+                                <input type="hidden" id="edit_sid" name="sid">
+                                <div class="mb-3">
+                                    <label for="edit_title" class="form-label">Title</label>
+                                    <input type="text" class="form-control" id="edit_title" name="title" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="edit_description" class="form-label">Description</label>
+                                    <textarea class="form-control" id="edit_description" name="description" rows="3" required></textarea>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="edit_image" class="form-label">Image</label>
+                                    <input type="file" class="form-control" id="edit_image" name="image">
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                    <button type="submit" class="btn btn-primary">Save changes</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
         </main>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
@@ -128,36 +159,59 @@
     </script>
 
 
-<script>
-$(document).ready(function () {
-    $(".delete-services").click(function () {
-        var servicesId = $(this).data("id");
-        var row = $(this).closest("tr");
+    <script>
+        $(document).ready(function () {
+            $(".delete-services").click(function () {
+                var servicesId = $(this).data("id");
+                var row = $(this).closest("tr");
 
-        console.log("Attempting to delete Service ID:", servicesId); // Debugging
+                console.log("Attempting to delete Service ID:", servicesId); // Debugging
 
-        if (confirm("Are you sure you want to delete this service?")) {
-            $.ajax({
-                url: "manageServices.php",
-                type: "POST",
-                data: { delete_id: servicesId }, // Corrected variable name
-                success: function (response) {
-                    console.log("Response:", response); // Debugging
+                if (confirm("Are you sure you want to delete this service?")) {
+                    $.ajax({
+                        url: "manageServices.php",
+                        type: "POST",
+                        data: { delete_id: servicesId }, // Corrected variable name
+                        success: function (response) {
+                            console.log("Response:", response); // Debugging
 
-                    if (response.trim() === "success") {
-                        row.fadeOut(500, function () { $(this).remove(); });
-                    } else {
-                        alert("Failed to delete the service: " + response);
-                    }
-                },
-                error: function(xhr, status, error) {
-                    console.error("AJAX Error:", status, error);
+                            if (response.trim() === "success") {
+                                row.fadeOut(500, function () { $(this).remove(); });
+                            } else {
+                                alert("Failed to delete the service: " + response);
+                            }
+                        },
+                        error: function(xhr, status, error) {
+                            console.error("AJAX Error:", status, error);
+                        }
+                    });
                 }
             });
-        }
-    });
-});
-</script>
+        });
+    </script>
+
+    <script>
+        $(document).ready(function () {
+            // Edit button click event
+            $('.btn-warning').click(function () {
+                let row = $(this).closest('tr'); // Get the closest row (tr)
+                let sid = row.find('td:first').text().trim(); // Fetch the service ID from the first cell
+                let title = row.find('td:nth-child(3)').text().trim(); // Fetch the title from the third cell
+                let description = row.find('td:nth-child(4)').text().trim(); // Fetch the description from the fourth cell
+
+                // Set the values in the modal input fields
+                $('#edit_sid').val(sid); 
+                $('#edit_title').val(title); 
+                $('#edit_description').val(description);
+
+                // Show the modal
+                var editModal = new bootstrap.Modal(document.getElementById('editServiceModal'));
+                editModal.show();
+            });
+        });
+    </script>
+
+
 
 
 </body>

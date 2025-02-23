@@ -1,67 +1,59 @@
 <?php
 include 'connect.php'; // Database connection
 
-// Handle form submission (Adding testimonial)
-if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['quote'])) {
-    $quote = htmlspecialchars($_POST['quote']);
-    $name = htmlspecialchars($_POST['name']);
-    $designation = htmlspecialchars($_POST['designation']);
-    $address = htmlspecialchars($_POST['address']);
-    $createdDate = date("Y-m-d H:i:s"); // Current timestamp
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
-    // Handle image upload safely
-    if (isset($_FILES['image']) && $_FILES['image']['error'] == 0) {
-        $imageData = file_get_contents($_FILES['image']['tmp_name']);
+    if (isset($_POST['addTestimonial'])) {
+        // Handle Add Testimonial
+        $quote = $_POST['quote'];
+        $name = $_POST['name'];
+        $designation = $_POST['designation'];
+        $address = $_POST['address'];
 
-        // Prepare the statement
-        $stmt = $conn->prepare("INSERT INTO testimonial (quote, name, image, designation, address, created_date) VALUES (?, ?, ?, ?, ?, ?)");
-        if ($stmt === false) {
-            die("Error preparing statement: " . $conn->error);
+        if (!empty($_FILES['image']['tmp_name'])) {
+            $image = file_get_contents($_FILES['image']['tmp_name']);
         }
 
-        $stmt->bind_param("ssssss", $quote, $name, $imageData, $designation, $address, $createdDate);
-
-        // Execute the query
+        $stmt = $conn->prepare("INSERT INTO testimonial (quote, name, image, designation, address, created_date) VALUES (?, ?, ?, ?, ?, NOW())");
+        $stmt->bind_param("sssss", $quote, $name, $image, $designation, $address);
+        
         if ($stmt->execute()) {
-            echo "<script>alert('Testimonial added successfully'); window.location.href='manageTestimonials.php';</script>";
+            echo "<script>alert('Testimonial added successfully!'); window.location.href='manageTestimonials.php';</script>";
         } else {
-            echo "<script>alert('Error: " . $stmt->error . "');</script>";
+            echo "<script>alert('Error adding testimonial');</script>";
         }
-
         $stmt->close();
-    } else {
-        echo "<script>alert('Error uploading image');</script>";
-    }
-}
+    } 
+    
+    elseif (isset($_POST['updateTestimonial'])) {
+        // Handle Update Testimonial
+        $id = $_POST['edit_id'];
+        $quote = $_POST['quote'];
+        $name = $_POST['name'];
+        $designation = $_POST['designation'];
+        $address = $_POST['address'];
 
-// Handle testimonial deletion (AJAX request)
-if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['delete_id'])) {
-    $delete_id = intval($_POST['delete_id']);
-
-    // Check if testimonial ID exists before deleting
-    $checkStmt = $conn->prepare("SELECT id FROM testimonial WHERE id = ?");
-    $checkStmt->bind_param("i", $delete_id);
-    $checkStmt->execute();
-    $result = $checkStmt->get_result();
-    $checkStmt->close();
-
-    if ($result->num_rows > 0) {
-        $stmt = $conn->prepare("DELETE FROM testimonial WHERE id = ?");
-        $stmt->bind_param("i", $delete_id);
+        if (!empty($_FILES['image']['tmp_name'])) {
+            $image = file_get_contents($_FILES['image']['tmp_name']);
+            $stmt = $conn->prepare("UPDATE testimonial SET quote=?, name=?, image=?, designation=?, address=? WHERE id=?");
+            $stmt->bind_param("sssssi", $quote, $name, $image, $designation, $address, $id);
+        } else {
+            $stmt = $conn->prepare("UPDATE testimonial SET quote=?, name=?, designation=?, address=? WHERE id=?");
+            $stmt->bind_param("ssssi", $quote, $name, $designation, $address, $id);
+        }
 
         if ($stmt->execute()) {
-            echo "success";
+            echo "<script>alert('Testimonial updated successfully!'); window.location.href='manageTestimonials.php';</script>";
         } else {
-            echo "error: " . $stmt->error;
+            echo "<script>alert('Error updating testimonial');</script>";
         }
-
         $stmt->close();
-    } else {
-        echo "error: testimonial not found";
     }
 
-    exit(); // Stop further script execution
 }
+
+
+
 
 // Fetch total number of testimonials
 $sql = "SELECT COUNT(*) AS total FROM testimonial";
