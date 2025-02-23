@@ -481,9 +481,9 @@
               <script type="application/json" class="swiper-config">
                 {
                   "loop": true,
-                  "speed": 600,
+                  "speed": 500,
                   "autoplay": {
-                    "delay": 5000
+                    "delay": 2000
                   },
                   "slidesPerView": "auto",
                   "pagination": {
@@ -544,7 +544,7 @@
       <div class="container-fluid section-title" data-aos="fade-up">
         <span>Testimonials</span>
         <h2>Testimonials</h2>
-        <p>Necessitatibus eius consequatur ex aliquid fuga eum quidem sint consectetur velit</p>
+        <p>Hear from our valued clients about how NIRC’s innovative software and cloud management solutions have enhanced their operations.</p>
       </div><!-- End Section Title -->
 
       <div class="container-fluid" data-aos="fade-up" data-aos-delay="100">
@@ -552,9 +552,9 @@
           <script type="application/json" class="swiper-config">
             {
               "loop": true,
-              "speed": 600,
+              "speed": 500,
               "autoplay": {
-                "delay": 5000
+                "delay": 2000
               },
               "slidesPerView": "auto",
               "pagination": {
@@ -596,9 +596,13 @@
                                 <span>' . htmlspecialchars($row['quote']) . '</span>
                                 <i class="bi bi-quote quote-icon-right"></i>
                             </p>
-                            <img src="' . $imageSrc . '" class="testimonial-img" alt="' . htmlspecialchars($row['name']) . '">
-                            <h3>' . htmlspecialchars($row['name']) . '</h3>
-                            <h4>' . htmlspecialchars($row['designation']) . '</h4>
+                            <div class="img-box">
+                              <img src="' . $imageSrc . '" class="testimonial-img" alt="' . htmlspecialchars($row['name']) . '">
+                              <div>
+                                <h3>' . htmlspecialchars($row['name']) . '</h3>
+                                <h4>' . htmlspecialchars($row['designation']) . '</h4>
+                              </div>
+                            </div>
                         </div>
                     </div>';
                 }
@@ -703,35 +707,36 @@
         <p>Reach out to us for collaboration, inquiries, or support—we're here to help! </p>
       </div><!-- End Section Title -->
       <div class="container-fluid" data-aos="fade-up" data-aos-delay="100">
+        <div class="row">
+                    
+                    <div class="col-lg-4 info-item d-flex align-items-center justify-content-center" >
+                      <i class="bi bi-geo-alt flex-shrink-0"></i>
+                      <div>
+                        <h3>Address</h3>
+                        <p>Gaushala, Kathmandu, Nepal</p>
+                      </div>
+                    </div>
+      
+                    <div class=" col-lg-4 info-item d-flex align-items-center justify-content-center">
+                      <i class="bi bi-telephone flex-shrink-0"></i>
+                      <div>
+                        <h3>Call Us</h3>
+                        <p>+977 984-9044721</p>
+                      </div>
+                    </div>
+      
+                    <div class=" col-lg-4 info-item d-flex align-items-center justify-content-center" >
+                      <i class="bi bi-envelope flex-shrink-0"></i>
+                      <div>
+                        <h3>Email Us</h3>
+                        <p>admin@nirc.com.np</p>
+                      </div>
+                    </div>
+                    
+                  </div>
         <div class="row gy-4">
           <div class="col-lg-7">
-            <div class="info-wrap">
-              <div class="row d-flex align-items-center justify-content-between">
-                <div class="col-lg-4 info-item d-flex" >
-                  <i class="bi bi-geo-alt flex-shrink-0"></i>
-                  <div>
-                    <h3>Address</h3>
-                    <p>Gaushala, Kathmandu, Nepal</p>
-                  </div>
-                </div>
-  
-                <div class=" col-lg-4 info-item d-flex">
-                  <i class="bi bi-telephone flex-shrink-0"></i>
-                  <div>
-                    <h3>Call Us</h3>
-                    <p>+977 984-9044721</p>
-                  </div>
-                </div>
-  
-                <div class=" col-lg-4 info-item d-flex" >
-                  <i class="bi bi-envelope flex-shrink-0"></i>
-                  <div>
-                    <h3>Email Us</h3>
-                    <p>admin@nirc.com.np</p>
-                  </div>
-                </div>
-
-              </div>
+            <div class="">
               <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d14129.53785890344!2d85.32936566299314!3d27.705413376712457!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39eb19c7c886557d%3A0xa23b44219e7e07e3!2sPashupati%20vision%20complex!5e0!3m2!1sen!2snp!4v1739688228633!5m2!1sen!2snp" frameborder="0" style="border:0; width: 100%; height: 278px;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
             </div>
           </div>
@@ -814,18 +819,18 @@
             <li><i class="bi bi-chevron-right"></i> <a href="#">Home</a></li>
             <li><i class="bi bi-chevron-right"></i> <a href="#about">About us</a></li>
             <li><i class="bi bi-chevron-right"></i> <a href="#services">Services</a></li>
-            <!-- <li><i class="bi bi-chevron-right"></i> <a href="#">Terms of service</a></li> -->
+            <li><i class="bi bi-chevron-right"></i> <a href="privacy_policy.php">Privacy & Policy</a></li>
           </ul>
         </div>
 
         <div class="col-lg-3 col-md-3 footer-links">
           <h4>Our Services</h4>
           <ul>
-            <li><i class="bi bi-chevron-right"></i> <a href="#">Web Design</a></li>
-            <li><i class="bi bi-chevron-right"></i> <a href="#">Web Development</a></li>
-            <li><i class="bi bi-chevron-right"></i> <a href="#">Mobile Development</a></li>
-            <li><i class="bi bi-chevron-right"></i> <a href="#">Product Management</a></li>
-            <li><i class="bi bi-chevron-right"></i> <a href="#">Marketing</a></li>
+            <li><i class="bi bi-chevron-right"></i> <a href="index.php#services">Web Design</a></li>
+            <li><i class="bi bi-chevron-right"></i> <a href="index.php#services">Web Development</a></li>
+            <li><i class="bi bi-chevron-right"></i> <a href="index.php#services">Mobile Development</a></li>
+            <li><i class="bi bi-chevron-right"></i> <a href="index.php#services">Product Management</a></li>
+            <li><i class="bi bi-chevron-right"></i> <a href="index.php#services">Marketing</a></li>
           </ul>
         </div>
 

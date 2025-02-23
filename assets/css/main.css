@@ -538,59 +538,7 @@ h6 {
   position: relative;
 }
 
-.footer .footer-newsletter {
-  background-color: color-mix(in srgb, var(--default-color), transparent 97%);
-  padding: 30px 0;
-}
 
-.footer .footer-newsletter h4 {
-  font-size: 24px;
-}
-
-.footer .footer-newsletter .newsletter-form {
-  margin-top: 30px;
-  margin-bottom: 15px;
-  padding: 6px 8px;
-  position: relative;
-  border-radius: 4px;
-  background-color: var(--surface-color);
-  border: 1px solid color-mix(in srgb, var(--default-color), transparent 90%);
-  box-shadow: 0px 2px 25px rgba(0, 0, 0, 0.1);
-  display: flex;
-  transition: 0.3s;
-  border-radius: 50px;
-}
-
-.footer .footer-newsletter .newsletter-form:focus-within {
-  border-color: var(--accent-color);
-}
-
-.footer .footer-newsletter .newsletter-form input[type=email] {
-  border: 0;
-  padding: 4px;
-  width: 100%;
-  background-color: var(--surface-color);
-  color: var(--default-color);
-}
-
-.footer .footer-newsletter .newsletter-form input[type=email]:focus-visible {
-  outline: none;
-}
-
-.footer .footer-newsletter .newsletter-form input[type=submit] {
-  border: 0;
-  font-size: 16px;
-  padding: 0 20px;
-  margin: -7px -8px -7px 0;
-  background: var(--accent-color);
-  color: var(--contrast-color);
-  transition: 0.3s;
-  border-radius: 50px;
-}
-
-.footer .footer-newsletter .newsletter-form input[type=submit]:hover {
-  background: color-mix(in srgb, var(--accent-color), transparent 20%);
-}
 
 .footer .footer-top {
   padding-top: 30px;
@@ -676,7 +624,7 @@ h6 {
 }
 
 .footer .footer-about a {
-  color: var(--heading-color);
+  color: rgb(12, 12, 12);
   font-size: 24px;
   font-weight: 600;
   font-family: var(--heading-font);
@@ -684,6 +632,10 @@ h6 {
 
 .footer .footer-contact p {
   margin-bottom: 5px;
+  
+}
+.footer .footer-contact p span{
+  color: #060606c9;
 }
 
 .footer .copyright {
@@ -693,6 +645,9 @@ h6 {
 
 .footer .copyright p {
   margin-bottom: 0;
+}
+.footer .copyright .sitename{
+  color: #1EBABD;
 }
 
 .footer .credits {
@@ -860,7 +815,7 @@ h6 {
 /*--------------------------------------------------------------
 # Global Sections
 --------------------------------------------------------------*/
-section,
+
 .section {
   color: var(--default-color);
   background-color: var(--background-color);
@@ -1156,13 +1111,13 @@ section,
 
 .services .service-item .icon {
   margin: 0 auto;
-  width: 64px;
-  height: 64px;
+  width: 60px;
+  height: 60px;
   border-radius: 4px;
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-bottom: 20px;
+  margin-bottom: 5px;
   transition: 0.3s;
 }
 
@@ -1173,14 +1128,13 @@ section,
 }
 
 .services .service-item h3 {
-  font-weight: 700;
-  margin: 10px 0 15px 0;
-  font-size: 22px;
+  font-weight: 600;
+  margin: 5px;
+  font-size: 18px;
   transition: 0.3s;
 }
 
 .services .service-item p {
-  line-height: 24px;
   font-size: 14px;
   margin-bottom: 0;
 }
@@ -1300,29 +1254,38 @@ section,
 }
 
 .testimonials .testimonial-item {
-  box-sizing: content-box;
-  min-height: 320px;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  min-height: auto;
+  padding-bottom: 25px;
+  border-radius: 8px;
+  margin: 15px 0;
+}
+.testimonials .testimonial-item .img-box{
+  display: flex;
 }
 
 .testimonials .testimonial-item .testimonial-img {
-  width: 90px;
-  border-radius: 50%;
-  margin: -40px 0 0 40px;
+  width: 170px;
+  height: 170px;
+  border-radius: 5%;
+  object-fit: cover;
+  margin: -40px 0 0 15px;
   position: relative;
   z-index: 2;
-  border: 6px solid var(--background-color);
+  border: 2px solid var(--background-color);
 }
 
 .testimonials .testimonial-item h3 {
   font-size: 18px;
   font-weight: bold;
-  margin: 10px 0 5px 45px;
+  color: #1EBABD;
+  margin: 10px 0 5px 10px;
 }
 
 .testimonials .testimonial-item h4 {
   font-size: 14px;
   color: color-mix(in srgb, var(--default-color), transparent 20%);
-  margin: 0 0 0 45px;
+  margin: 0 0 0 10px;
 }
 
 .testimonials .testimonial-item .quote-icon-left,
@@ -1348,8 +1311,7 @@ section,
 
 .testimonials .testimonial-item p {
   font-style: italic;
-  margin: 0 15px 0 15px;
-  padding: 20px 20px 60px 20px;
+  padding: 25px 20px 40px 20px;
   background: color-mix(in srgb, var(--default-color), transparent 97%);
   position: relative;
   border-radius: 6px;
@@ -1767,9 +1729,10 @@ section,
 }
 
 /* clients section  */
+
 .clients-item .card{
   border: none !important;
-  padding: 20px;
+  padding: 15px;
   margin: 10px 0px;
   display: flex;
   align-items: center;
@@ -1777,19 +1740,28 @@ section,
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 }
 
+
 .clients-item .card img{
-  width:100px;
-  height: 100px;
+  width:90px;
+  height: 90px;
 }
 .clients-item .card h2{
-  font-size: 16px;
-  color: #060606;
+  font-size: 18px;
+  font-weight: 600;
+  color: rgb(228, 15, 15);
   margin-top: 5px;
-  margin-bottom: 0;
+  margin-bottom: 2px;
+}
+.clients-item .card:hover h2{
+  font-size: 18px;
+  font-weight: 600;
+  color: #0A63BC;
+  margin-top: 5px;
+  margin-bottom: 2px;
 }
 .clients-item .card p{
   font-size: 12px;
-  color: #060606;
+  color: #0c0c0cc1;
 
 }
 .purecounter::after {
@@ -1797,4 +1769,39 @@ section,
 }
 .plus .purecounter::after {
   content: "/7";
+}
+
+
+/* terms and condition  */
+.terms_condition .bg-linerar {
+  width: 100%;
+  height: auto;
+  background: linear-gradient(#1EBABD, #0d316a95), 
+              url(../img/banner.jpg) !important;
+  background-size: contain; /* Ensures the image covers the div */
+  padding: 25px 0px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.bg-linerar h3{
+  font-size: 25px;
+  font-weight: 600;
+  margin-bottom: 0;
+ color:  #ffff;
+}
+.bg-linerar p{
+  font-size: 12px;
+  margin-bottom: 0;
+ color:  #bebebe;
+}
+.content-text p{
+  color: #1EBABD !important;
+  font-size: 16px !important;
+}
+.content-text ul li{
+  list-style: none;
+  font-size: 14px !important;
 }
