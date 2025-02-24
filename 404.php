@@ -3,7 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <!-- Theme Color for Mobile Browsers -->
+    <meta name="theme-color" content="#1BA4A7"> <!-- For Chrome, Firefox, Edge -->
+    <meta name="msapplication-navbutton-color" content="#1BA4A7"> <!-- For Windows Phone -->
+    <meta name="apple-mobile-web-app-status-bar-style" content="#1BA4A7"> <!-- For Safari on iOS -->
+    <!-- Favicons -->
+    <link href="assets/img/favicon.ico" rel="icon">
+    <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+    <title>Nirc~Oops page not found !</title>
 
     <style>
         body{
@@ -63,8 +70,8 @@
    </div> -->
   <div class="error-content">
     <h1>404</h1>
-    <p>Oops! Page not Found</p>
-    <a href="#" class="btn btn-primary">Back To Home</a>
+    <p>Oops! Page not Found !</p>
+    <a href="https://nirc.com.np/" class="btn btn-primary">Back To Home</a>
   </div>
 </div> 
 

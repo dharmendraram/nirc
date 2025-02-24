@@ -12,6 +12,10 @@
   <title>Nirc~home</title>
   <meta name="description" content="">
   <meta name="keywords" content="">
+  <!-- Theme Color for Mobile Browsers -->
+  <meta name="theme-color" content="#1BA4A7"> <!-- For Chrome, Firefox, Edge -->
+    <meta name="msapplication-navbutton-color" content="#1BA4A7"> <!-- For Windows Phone -->
+    <meta name="apple-mobile-web-app-status-bar-style" content="#1BA4A7"> <!-- For Safari on iOS -->
 
   <!-- Favicons -->
   <link href="assets/img/favicon.ico" rel="icon">

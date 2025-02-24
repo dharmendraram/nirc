@@ -17,11 +17,6 @@
   <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Raleway:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap" rel="stylesheet">
 
-  <link rel ="stylesheet" type = "text/css" href ="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css"/>
-    <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
-    <script src = "https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
     <link rel="stylesheet" href="dashboard.css"> <!-- Include your CSS file -->
 
 </head>
@@ -48,7 +43,7 @@
                     </div>
 
                     <div class="col-md-12">
-                    <table class="table table-success table-striped mt-2" id="myTable">
+                    <table class="table table-success table-striped mt-2" id="myTable" >
                     <thead class="table-dark">
                         <tr>
                             <th>ID</th>
@@ -228,7 +223,7 @@
     <script>
         // Initialize Lucide icons
         lucide.createIcons();
-        let table = new DataTable('#myTable');
+
     </script>
 
 
