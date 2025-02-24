@@ -77,7 +77,7 @@
       </nav>
 
       <div class="console-login d-flex ms-auto">
-          <a href="http://localhost/nirc/back/login.php" target="_blank" class="btn btn-sm  btn-login">Console login</a> 
+          <a href="https://nirc.com.np/back/login.php" target="_blank" class="btn btn-sm  btn-login">Console login</a> 
       </div>
 
     </div>
@@ -284,7 +284,7 @@
                       <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-app">
                           <div class="portfolio-card">
                               <img src="data:image/jpeg;base64,<?php echo $mainImage; ?>" class="img-fluid portfolio-thumb" alt="">
-                              <div class="portfolio-info">
+                              <div class="portfolio-info rounded">
                                   <h4><?php echo htmlspecialchars($row['title']); ?></h4>
                                   <p><?php echo htmlspecialchars($row['description']); ?></p>
                                   <button type="button" class="btn btn-sm btn-primary gallery-btn" data-bs-toggle="modal" data-bs-target="#portfolioModal<?php echo $row['pid']; ?>">
@@ -296,12 +296,12 @@
 
                       <!-- Modal -->
                       <div class="modal fade" id="portfolioModal<?php echo $row['pid']; ?>" tabindex="-1" aria-labelledby="portfolioModalLabel<?php echo $row['pid']; ?>" aria-hidden="true">
-                          <div class="modal-dialog modal-xl modal-dialog-centered">
+                          <div class="modal-dialog modal-lg modal-dialog-centered">
                               <div class="modal-content">
                                   <div class="modal-header">
-                                      <h5 class="modal-title" id="portfolioModalLabel<?php echo $row['pid']; ?>">
+                                      <h6 class="modal-title text-center text-light" id="portfolioModalLabel<?php echo $row['pid']; ?>">
                                           <i class="fas fa-folder-open me-2"></i><?php echo htmlspecialchars($row['title']); ?>
-                                      </h5>
+                                      </h6>
                                       <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                   </div>
                                   <div class="modal-body p-0">
@@ -376,21 +376,22 @@
                 .gallery-btn {
                     background: #007bff;
                     border: none;
-                    padding: 8px 15px;
+                    font-size:12px;
+                    padding: 6px 10px;
                     border-radius: 5px;
+                    margin-top:5px;
                     transition: all 0.3s ease;
                 }
 
                 .gallery-btn:hover {
-                    background: #0056b3;
+                    background: #20B8C0;
+                    font-size:12px;
+                    margin-top:5px;
                     transform: scale(1.05);
                 }
 
                 /* Modal Styling */
-                .modal-xl {
-                    max-width: 700px;
-                    height: 500px;
-                }
+               
 
                 .carousel-image-container {
                     max-height: 400px;
@@ -414,8 +415,8 @@
 
                 .carousel-control-prev,
                 .carousel-control-next {
-                    width: 5%;
                     opacity: 0.8;
+                    font-size:12px !important;
                     transition: opacity 0.3s ease;
                 }
 
@@ -425,10 +426,10 @@
                 }
 
                 .carousel-icon {
-                    width: 40px;
-                    height: 40px;
+                    width: 30px;
+                    height: 30px;
                     border-radius: 50%;
-                    background-color: rgba(0, 0, 0, 0.7);
+                    background-color: #20B8C0;
                 }
 
                 .modal-content {
@@ -439,9 +440,8 @@
                 }
 
                 .modal-header {
-                    background: #007bff;
+                    background: #20B8C0;
                     color: white;
-                    border-bottom: none;
                 }
 
                 /* Animation */
@@ -467,7 +467,7 @@
 
     </section><!-- /Portfolio Section -->
         <!-- Clients Section -->
-        <section id="clients" class="testimonials section light-background">
+        <section id="clients" class="section light-background">
 
           <div class="container-fluid section-title" data-aos="fade-up">
             <span>Clients</span>
@@ -517,11 +517,9 @@
                           echo '
                           <div class="swiper-slide">
                               <div class="clients-item">
-                                  <div class="card">
-                                      <img src="' . $imageSrc . '" alt="' . htmlspecialchars($row['cname']) . '">
-                                      <h2>' . htmlspecialchars($row['cname']) . '</h2>
-                                      <p>' . htmlspecialchars($row['caddress']) . '</p>
-                                  </div>
+                                        <img src="' . $imageSrc . '" alt="' . htmlspecialchars($row['cname']) . '">
+                                        <h2>' . htmlspecialchars($row['cname']) . '</h2>
+                                        <p>' . htmlspecialchars($row['caddress']) . '</p>
                               </div>
                           </div>';
                       }
@@ -568,7 +566,7 @@
                   "spaceBetween": 40
                 },
                 "1200": {
-                  "slidesPerView": 3,
+                  "slidesPerView": 4,
                   "spaceBetween": 20
                 }
               }
@@ -601,6 +599,7 @@
                               <div>
                                 <h3>' . htmlspecialchars($row['name']) . '</h3>
                                 <h4>' . htmlspecialchars($row['designation']) . '</h4>
+                                <h6>' . htmlspecialchars($row['address']) . '</h6>
                               </div>
                             </div>
                         </div>
@@ -708,8 +707,8 @@
       </div><!-- End Section Title -->
       <div class="container-fluid" data-aos="fade-up" data-aos-delay="100">
         <div class="row">
-                    
-                    <div class="col-lg-4 info-item d-flex align-items-center justify-content-center" >
+                    <div class="col-lg-2"></div>
+                    <div class="col-lg-3 info-item d-flex align-items-center " >
                       <i class="bi bi-geo-alt flex-shrink-0"></i>
                       <div>
                         <h3>Address</h3>
@@ -717,7 +716,7 @@
                       </div>
                     </div>
       
-                    <div class=" col-lg-4 info-item d-flex align-items-center justify-content-center">
+                    <div class=" col-lg-3 info-item d-flex align-items-center ">
                       <i class="bi bi-telephone flex-shrink-0"></i>
                       <div>
                         <h3>Call Us</h3>
@@ -725,7 +724,7 @@
                       </div>
                     </div>
       
-                    <div class=" col-lg-4 info-item d-flex align-items-center justify-content-center" >
+                    <div class=" col-lg-4 info-item d-flex align-items-center" >
                       <i class="bi bi-envelope flex-shrink-0"></i>
                       <div>
                         <h3>Email Us</h3>
@@ -737,7 +736,7 @@
         <div class="row gy-4">
           <div class="col-lg-7">
             <div class="">
-              <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d14129.53785890344!2d85.32936566299314!3d27.705413376712457!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39eb19c7c886557d%3A0xa23b44219e7e07e3!2sPashupati%20vision%20complex!5e0!3m2!1sen!2snp!4v1739688228633!5m2!1sen!2snp" frameborder="0" style="border:0; width: 100%; height: 278px;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+              <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d14129.53785890344!2d85.32936566299314!3d27.705413376712457!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39eb19c7c886557d%3A0xa23b44219e7e07e3!2sPashupati%20vision%20complex!5e0!3m2!1sen!2snp!4v1739688228633!5m2!1sen!2snp" frameborder="0" style="border:0; width: 100%; height: 432px;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
             </div>
           </div>
 

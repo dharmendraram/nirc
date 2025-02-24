@@ -3,29 +3,35 @@
 Develop by: Dharmendra Kumar Ram on 2/16/2025 
 
 */
-
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 :root {
-  --default-font: "Roboto",  system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
-  --heading-font: "Raleway",  sans-serif;
-  --nav-font: "Ubuntu",  sans-serif;
+  --default-font: "Roboto", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  --heading-font: "Raleway", sans-serif;
+  --nav-font: "Ubuntu", sans-serif;
 }
+
 /* global  */
-:root { 
-  --background-color: #ffffff; 
-  --default-color: #444444; 
-  --heading-color: #5f687b; 
+:root {
+  --background-color: #ffffff;
+  --default-color: #444444;
+  --heading-color: #5f687b;
   --accent-color: #1EBABD;
-  --surface-color: #ffffff; 
-  --contrast-color: #ffffff; 
+  --surface-color: #ffffff;
+  --contrast-color: #ffffff;
 }
+
 /* navbar colcor  */
 :root {
-  --nav-color: #5f687b;  
-  --nav-hover-color: #1EBABD; 
-  --nav-mobile-background-color: #ffffff; 
-  --nav-dropdown-background-color: #ffffff; 
-  --nav-dropdown-color: #5f687b; 
-  --nav-dropdown-hover-color: #1EBABD; 
+  --nav-color: #5f687b;
+  --nav-hover-color: #1EBABD;
+  --nav-mobile-background-color: #ffffff;
+  --nav-dropdown-background-color: #ffffff;
+  --nav-dropdown-color: #5f687b;
+  --nav-dropdown-hover-color: #1EBABD;
 }
 
 .light-background {
@@ -258,6 +264,7 @@ h6 {
   color: var(--contrast-color);
   background: color-mix(in srgb, var(--accent-color), transparent 15%);
 }
+
 .header .console-login .btn-login {
   background: linear-gradient(to right, #1ebabdea, rgba(180, 8, 8, 0.808)) !important;
   border: none;
@@ -265,6 +272,7 @@ h6 {
   font-size: 13px;
   padding: 6px 14px;
 }
+
 .header .console-login .btn-login:hover {
   background: linear-gradient(to right, #19e4e8ea, rgba(220, 10, 10, 0.808)) !important;
   border: none;
@@ -272,6 +280,7 @@ h6 {
   font-size: 13px;
   padding: 6px 14px;
 }
+
 @media (max-width: 1200px) {
   .header .logo {
     order: 1;
@@ -544,7 +553,7 @@ h6 {
   padding-top: 30px;
 }
 
- .social-links a .bi-whatsapp{
+.social-links a .bi-whatsapp {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -557,7 +566,8 @@ h6 {
   margin-right: 10px;
   transition: 0.3s;
 }
-.social-links a .bi-linkedin{
+
+.social-links a .bi-linkedin {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -571,10 +581,11 @@ h6 {
   transition: 0.3s;
 }
 
- .social-links a:hover .bi-linkedin {
+.social-links a:hover .bi-linkedin {
   transform: scale(1.2);
-  
+
 }
+
 .social-links a:hover .bi-whatsapp {
   transform: scale(1.2);
 }
@@ -632,9 +643,10 @@ h6 {
 
 .footer .footer-contact p {
   margin-bottom: 5px;
-  
+
 }
-.footer .footer-contact p span{
+
+.footer .footer-contact p span {
   color: #060606c9;
 }
 
@@ -646,7 +658,8 @@ h6 {
 .footer .copyright p {
   margin-bottom: 0;
 }
-.footer .copyright .sitename{
+
+.footer .copyright .sitename {
   color: #1EBABD;
 }
 
@@ -737,10 +750,12 @@ h6 {
   border-radius: 50px;
   transition: all 0.4s;
 }
-.whatsapp-btn i{
+
+.whatsapp-btn i {
   font-size: 16px;
 }
-.whatsapp-btn:hover{
+
+.whatsapp-btn:hover {
   background-color: #1EBABD;
   color: whitesmoke;
 }
@@ -758,14 +773,17 @@ h6 {
   border-radius: 50px;
   transition: all 0.4s;
 }
-.linkedin-btn i{
+
+.linkedin-btn i {
   font-size: 16px;
 }
-.linkedin-btn:hover{
+
+.linkedin-btn:hover {
   background-color: #1EBABD;
   border: 1px solid #1EBABD;
   color: whitesmoke;
 }
+
 /*--------------------------------------------------------------
 # Disable aos animation delay on mobile devices
 --------------------------------------------------------------*/
@@ -1255,18 +1273,20 @@ h6 {
 
 .testimonials .testimonial-item {
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
-  min-height: auto;
+  min-height: 315px;
+  overflow: hidden;
   padding-bottom: 25px;
   border-radius: 8px;
   margin: 15px 0;
 }
-.testimonials .testimonial-item .img-box{
+
+.testimonials .testimonial-item .img-box {
   display: flex;
 }
 
-.testimonials .testimonial-item .testimonial-img {
-  width: 170px;
-  height: 170px;
+.testimonials .testimonial-item .img-box .testimonial-img {
+  width: 120px;
+  height: 120px;
   border-radius: 5%;
   object-fit: cover;
   margin: -40px 0 0 15px;
@@ -1276,22 +1296,22 @@ h6 {
 }
 
 .testimonials .testimonial-item h3 {
-  font-size: 18px;
+  font-size: 16px;
   font-weight: bold;
   color: #1EBABD;
   margin: 10px 0 5px 10px;
 }
 
 .testimonials .testimonial-item h4 {
-  font-size: 14px;
+  font-size: 14px !important;
   color: color-mix(in srgb, var(--default-color), transparent 20%);
-  margin: 0 0 0 10px;
+  margin: 0 0 2px 10px;
 }
 
 .testimonials .testimonial-item .quote-icon-left,
 .testimonials .testimonial-item .quote-icon-right {
   color: color-mix(in srgb, var(--accent-color), transparent 50%);
-  font-size: 26px;
+  font-size: 20px;
   line-height: 0;
 }
 
@@ -1311,17 +1331,20 @@ h6 {
 
 .testimonials .testimonial-item p {
   font-style: italic;
-  padding: 25px 20px 40px 20px;
+  padding: 25px 20px 60px 20px;
+  font-size: 14px;
   background: color-mix(in srgb, var(--default-color), transparent 97%);
   position: relative;
   border-radius: 6px;
-  position: relative;
   z-index: 1;
+  height: 220px !important;
+  overflow-y: scroll;
+}
+.testimonials .testimonial-item h6{
+  font-size: 12px !important;
+  margin: 0 0 0 10px;
 }
 
-.testimonials .swiper-wrapper {
-  height: auto;
-}
 
 .testimonials .swiper-pagination {
   margin-top: 20px;
@@ -1428,6 +1451,7 @@ h6 {
 
 .contact .info-item {
   margin-bottom: 40px;
+  justify-content: left;
 }
 
 .contact .info-item i {
@@ -1469,7 +1493,7 @@ h6 {
   box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
 }
 
-.contact .error-message{
+.contact .error-message {
   display: block;
   background-color: #df1529;
   padding: 10px;
@@ -1479,7 +1503,7 @@ h6 {
   margin-top: -12px;
 }
 
-.contact .sent-message{
+.contact .sent-message {
   display: block;
   background-color: #1EBABD;
   padding: 10px;
@@ -1730,43 +1754,57 @@ h6 {
 
 /* clients section  */
 
-.clients-item .card{
-  border: none !important;
-  padding: 15px;
-  margin: 10px 0px;
+.clients-item {
+  border: none;
+  border-radius: 5px;
+  background-color: #fff;
+  padding: 10px 15px;
   display: flex;
+  overflow: hidden;
+  margin: 10px;
+  flex-direction: column;
+  min-height: 210px;
   align-items: center;
   justify-content: center;
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 }
 
 
-.clients-item .card img{
-  width:90px;
+.clients-item  img {
+  width: 90px;
   height: 90px;
 }
-.clients-item .card h2{
+
+.clients-item h2 {
   font-size: 18px;
   font-weight: 600;
+  text-align: center;
   color: rgb(228, 15, 15);
   margin-top: 5px;
   margin-bottom: 2px;
 }
-.clients-item .card:hover h2{
+
+.clients-item:hover h2 {
   font-size: 18px;
   font-weight: 600;
   color: #0A63BC;
+  text-align: center;
   margin-top: 5px;
   margin-bottom: 2px;
 }
-.clients-item .card p{
+
+.clients-item p {
   font-size: 12px;
+  text-align: center;
   color: #0c0c0cc1;
+  margin-bottom: 0;
 
 }
+
 .purecounter::after {
   content: "+";
 }
+
 .plus .purecounter::after {
   content: "/7";
 }
@@ -1776,9 +1814,10 @@ h6 {
 .terms_condition .bg-linerar {
   width: 100%;
   height: auto;
-  background: linear-gradient(#1EBABD, #0d316a95), 
-              url(../img/banner.jpg) !important;
-  background-size: contain; /* Ensures the image covers the div */
+  background: linear-gradient(#1EBABD, #0d316a95),
+    url(../img/banner.jpg) !important;
+  background-size: contain;
+  /* Ensures the image covers the div */
   padding: 25px 0px;
   display: flex;
   flex-direction: column;
@@ -1786,22 +1825,25 @@ h6 {
   justify-content: center;
 }
 
-.bg-linerar h3{
+.bg-linerar h3 {
   font-size: 25px;
   font-weight: 600;
   margin-bottom: 0;
- color:  #ffff;
+  color: #ffff;
 }
-.bg-linerar p{
+
+.bg-linerar p {
   font-size: 12px;
   margin-bottom: 0;
- color:  #bebebe;
+  color: #bebebe;
 }
-.content-text p{
+
+.content-text p {
   color: #1EBABD !important;
   font-size: 16px !important;
 }
-.content-text ul li{
+
+.content-text ul li {
   list-style: none;
   font-size: 14px !important;
 }
