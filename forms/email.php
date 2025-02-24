@@ -32,7 +32,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $from = $email;
 
     // Recipient's email address
-    $to = "surajmahato9823@gmail.com";
+    $to = "hr@nirc.com.np";
 
     // Email subject
     $email_subject = "New message from: $name";
