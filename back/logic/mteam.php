@@ -21,4 +21,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && !isset($_POST['edit_id'])) {
         echo "<script>alert('Error uploading image');</script>";
     }
 }
+
+// Fetch total number of testimonials
+$sql = "SELECT COUNT(*) AS total FROM team";
+$result = $conn->query($sql);
+$row = $result->fetch_assoc();
+$totalTeam = $row['total'];
 ?>

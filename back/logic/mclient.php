@@ -1,5 +1,9 @@
 <?php
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+
 include 'connect.php'; // Database connection
+
 
         // Handle editing a client (AJAX request)
         if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['edit_client_id'])) {

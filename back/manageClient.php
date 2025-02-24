@@ -1,5 +1,10 @@
 
-<?php include 'logic/mclient.php'; ?>
+<?php include 'logic/mclient.php'; 
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+
+?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -204,71 +209,34 @@
 
 
         <script>
-            $(document).ready(function () {
-                // Handle Edit button click
-                $(".edit-client").click(function () {
-                    var clientId = $(this).closest('tr').find('td:first').text().trim(); // Ensure we get the correct client ID
-                    
-                    console.log("Client ID:", clientId); // Debugging line to check clientId value
-                    
-                    // Fetch client data using AJAX
-                    $.ajax({
-                        url: "mclient.php", // Ensure this path is correct for your server-side script
-                        type: "POST",
-                        data: { edit_id: clientId },
-                        success: function (response) {
-                            console.log("Response:", response); // Debugging line to check the response
+           $(document).ready(function () {
+    $(".edit-client").click(function () {
+        var clientId = $(this).closest('tr').find('td:first').text().trim();
 
-                            // Parse the JSON response from the server
-                            var client = JSON.parse(response);
-                            
-                            // Check if client data is returned correctly
-                            if (client) {
-                                console.log("Client data:", client); // Debugging the client object
+        $.ajax({
+            url: "mclient.php",
+            type: "POST",
+            data: { edit_id: clientId },
+            success: function (response) {
 
-                                // Pre-fill the modal with client data
-                                $('#editClientId').val(client.cid);
-                                $('#editCname').val(client.cname);
-                                $('#editCaddress').val(client.caddress);
-                                
-                                // Show the modal
-                                $('#editClientModal').modal('show'); 
-                            } else {
-                                alert("Client data not found or invalid response.");
-                            }
-                        },
-                        error: function (xhr, status, error) {
-                            console.error("AJAX error:", error); // Debugging AJAX error
-                            alert("An error occurred while fetching the client data.");
-                        }
-                    });
-                });
-
-                // Handle Edit form submission (AJAX)
-                $("#editClientForm").submit(function (e) {
-                    e.preventDefault();
-
-                    var formData = new FormData(this);
-                    $.ajax({
-                        url: "manageClient.php", // Ensure this path is correct for your server-side script
-                        type: "POST",
-                        data: formData,
-                        contentType: false,
-                        processData: false,
-                        success: function (response) {
-                            if (response.trim() == "success") {
-                                location.reload(); // Reload the page to reflect changes
-                            } else {
-                                alert("Failed to update the client.");
-                            }
-                        },
-                        error: function (xhr, status, error) {
-                            console.error("AJAX error:", error); // Debugging AJAX error
-                            alert("An error occurred while updating the client.");
-                        }
-                    });
-                });
-            });
+                
+                var client = JSON.parse(response);
+                if (client) {
+                    $('#editClientId').val(client.cid);
+                    $('#editCname').val(client.cname);
+                    $('#editCaddress').val(client.caddress);
+                    $('#editClientModal').modal('show');
+                } else {
+                    alert("Client data not found or invalid response.");
+                }
+            },
+            error: function (xhr, status, error) {
+                console.error("AJAX error:", error);
+                alert("An error occurred while fetching the client data.");
+            }
+        });
+    });
+});
         </script>
 
 
