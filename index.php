@@ -740,7 +740,7 @@
         <div class="row gy-4">
           <div class="col-lg-7">
             <div class="">
-              <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d14129.53785890344!2d85.32936566299314!3d27.705413376712457!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39eb19c7c886557d%3A0xa23b44219e7e07e3!2sPashupati%20vision%20complex!5e0!3m2!1sen!2snp!4v1739688228633!5m2!1sen!2snp" frameborder="0" style="border:0; width: 100%; height: 432px;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+              <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1580.729294213009!2d85.34476555086279!3d27.709347663692498!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39eb1900459784ed%3A0x8919850393c74cd6!2sNational%20Incubation%20and%20Research%20Center%20(NIRC)!5e0!3m2!1sen!2snp!4v1740392911867!5m2!1sen!2snp" frameborder="0" style="border:0; width: 100%; height: 432px;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
             </div>
           </div>
 
