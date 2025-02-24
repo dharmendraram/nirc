@@ -74,7 +74,7 @@
                 </button>
                 <div class="search-box">
                 
-                <a href="http://localhost/nirc/" target="_blank" class="">
+                <a href="https://nirc.com.np/" target="_blank" class="">
                 <img src="../assets/img/home.png" alt="" height="25" title="Back to home page">
                 </a>
                     
